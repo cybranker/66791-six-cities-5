@@ -1,8 +1,8 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 
 const Main = (props) => {
-  // eslint-disable-next-line react/prop-types
   const {numberPlaces} = props;
 
   return (
@@ -264,6 +264,10 @@ const Main = (props) => {
       </main>
     </div>
   );
+};
+
+Main.propTypes = {
+  numberPlaces: PropTypes.number.isRequired
 };
 
 
