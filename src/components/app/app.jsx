@@ -1,14 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Main from "../main/main";
+import MainScreen from "../main-screen/main-screen";
 
 
 const App = (props) => {
-  // eslint-disable-next-line react/prop-types
   const {numberPlaces} = props;
 
   return (
-    <Main numberPlaces={numberPlaces} />
+    <MainScreen numberPlaces={numberPlaces} />
   );
 };
 

@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 
-const Main = (props) => {
+const MainScreen = (props) => {
   const {numberPlaces} = props;
 
   return (
@@ -113,7 +113,7 @@ const Main = (props) => {
                     </div>
                     <div className="place-card__rating rating">
                       <div className="place-card__stars rating__stars">
-                        <span></span>
+                        <span style={{width: 80 + `%`}}></span>
                         <span className="visually-hidden">Rating</span>
                       </div>
                     </div>
@@ -145,7 +145,7 @@ const Main = (props) => {
                     </div>
                     <div className="place-card__rating rating">
                       <div className="place-card__stars rating__stars">
-                        <span></span>
+                        <span style={{width: 80 + `%`}}></span>
                         <span className="visually-hidden">Rating</span>
                       </div>
                     </div>
@@ -177,7 +177,7 @@ const Main = (props) => {
                     </div>
                     <div className="place-card__rating rating">
                       <div className="place-card__stars rating__stars">
-                        <span></span>
+                        <span style={{width: 80 + `%`}}></span>
                         <span className="visually-hidden">Rating</span>
                       </div>
                     </div>
@@ -212,7 +212,7 @@ const Main = (props) => {
                     </div>
                     <div className="place-card__rating rating">
                       <div className="place-card__stars rating__stars">
-                        <span></span>
+                        <span style={{width: 100 + `%`}}></span>
                         <span className="visually-hidden">Rating</span>
                       </div>
                     </div>
@@ -244,7 +244,7 @@ const Main = (props) => {
                     </div>
                     <div className="place-card__rating rating">
                       <div className="place-card__stars rating__stars">
-                        <span></span>
+                        <span style={{width: 80 + `%`}}></span>
                         <span className="visually-hidden">Rating</span>
                       </div>
                     </div>
@@ -266,9 +266,9 @@ const Main = (props) => {
   );
 };
 
-Main.propTypes = {
+MainScreen.propTypes = {
   numberPlaces: PropTypes.number.isRequired
 };
 
 
-export default Main;
+export default MainScreen;
