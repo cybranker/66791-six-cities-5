@@ -1,5 +1,6 @@
+import {AVATAR_URL} from "../const";
+
 const PICTURE_URL = `http://picsum.photos/248/152`;
-const AVATAR_URL = `https://api.adorable.io/avatars/128`;
 
 export default [{
   pictures: [{
