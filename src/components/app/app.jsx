@@ -8,7 +8,7 @@ import AuthScreen from "../auth-screen/auth-screen";
 
 
 const App = (props) => {
-  const {numberPlaces} = props;
+  const {numberPlaces, offers} = props;
 
   return (
     <BrowserRouter>
@@ -31,7 +31,8 @@ const App = (props) => {
 };
 
 App.propTypes = {
-  numberPlaces: PropTypes.number.isRequired
+  numberPlaces: PropTypes.number.isRequired,
+  offers: PropTypes.array.isRequired
 };
 
 
