@@ -20,7 +20,7 @@ export default [{
   ],
   isPremium: true,
   type: `hotel`,
-  rating: 4.8,
+  rating: 2.8,
   numberBedrooms: 2,
   maxGuests: 4,
   price: 180,
@@ -123,7 +123,7 @@ export default [{
     name: `Natasha`,
     isSuper: false
   },
-  isFavorite: false
+  isFavorite: true
 }, {
   pictures: [{
     src: `${PICTURE_URL}?r=${Math.random()}`,
@@ -142,7 +142,7 @@ export default [{
     `Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure.`
   ],
   isPremium: false,
-  type: `room`,
+  type: `apartment`,
   rating: 1.3,
   numberBedrooms: 2,
   maxGuests: 4,

@@ -14,7 +14,7 @@ const App = (props) => {
     <BrowserRouter>
       <Switch>
         <Route exact path="/">
-          <MainScreen numberPlaces={numberPlaces} />
+          <MainScreen numberPlaces={numberPlaces} offers={offers} />
         </Route>
         <Route exact path="/favorites">
           <FavoritesScreen />
