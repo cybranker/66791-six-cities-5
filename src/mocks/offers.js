@@ -110,10 +110,10 @@ export default [{
   ],
   isPremium: false,
   type: `room`,
-  rating: 3.5,
+  rating: 3.4,
   numberBedrooms: 1,
   maxGuests: 2,
-  price: 120,
+  price: 110,
   features: [
     `Wi-Fi`,
     `Kitchen`,

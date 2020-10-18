@@ -60,6 +60,7 @@ class PlaceCard extends PureComponent {
 PlaceCard.propTypes = {
   onHover: PropTypes.func.isRequired,
   offer: PropTypes.shape({
+    city: PropTypes.string.isRequired,
     pictures: PropTypes.arrayOf(PropTypes.shape({
       src: PropTypes.string.isRequired,
       description: PropTypes.string.isRequired,

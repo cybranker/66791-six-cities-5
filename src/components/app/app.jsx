@@ -19,9 +19,9 @@ const App = (props) => {
         <Route exact path="/favorites">
           <FavoritesScreen />
         </Route>
-        <Route exact path="/offer/:id">
-          <OfferScreen />
-        </Route>
+        <Route exact path="/offer/:id"
+          render={(params) => <OfferScreen offers={offers} {...params}/>}
+        />
         <Route exact path="/login">
           <AuthScreen />
         </Route>
