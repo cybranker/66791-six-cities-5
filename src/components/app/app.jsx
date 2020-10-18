@@ -17,7 +17,7 @@ const App = (props) => {
           <MainScreen numberPlaces={numberPlaces} offers={offers} />
         </Route>
         <Route exact path="/favorites">
-          <FavoritesScreen />
+          <FavoritesScreen offers={offers} />
         </Route>
         <Route exact path="/offer/:id"
           render={(params) => <OfferScreen offers={offers} reviews={reviews} {...params}/>}
