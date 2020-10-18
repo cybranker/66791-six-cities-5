@@ -9,7 +9,7 @@ class OfferScreen extends PureComponent {
   }
 
   render() {
-    const offers = this.props.offers;
+    const {offers, reviews} = this.props;
     const id = this.props.match.params.id;
     const offer = offers[id];
 
@@ -125,6 +125,7 @@ class OfferScreen extends PureComponent {
                       <img className="property__avatar user__avatar" src={manager.picture} width="74" height="74" alt="Host avatar"/>
                     </div>
                     <span className="property__user-name">{manager.name}</span>
+                    {manager.isSuper && <span className="property__user-status">Pro</span>}
                   </div>
                   <div className="property__description">
                     {description.map((item, i) => (
@@ -135,28 +136,30 @@ class OfferScreen extends PureComponent {
                   </div>
                 </div>
                 <section className="property__reviews reviews">
-                  <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">1</span></h2>
+                  <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
                   <ul className="reviews__list">
-                    <li className="reviews__item">
-                      <div className="reviews__user user">
-                        <div className="reviews__avatar-wrapper user__avatar-wrapper">
-                          <img className="reviews__avatar user__avatar" src="img/avatar-max.jpg" width="54" height="54" alt="Reviews avatar"/>
-                        </div>
-                        <span className="reviews__user-name">Max</span>
-                      </div>
-                      <div className="reviews__info">
-                        <div className="reviews__rating rating">
-                          <div className="reviews__stars rating__stars">
-                            <span style={{width: 80 + `%`}}></span>
-                            <span className="visually-hidden">Rating</span>
+                    {reviews.map((review, i) => (
+                      <li key={`review-${i}}`} className="reviews__item">
+                        <div className="reviews__user user">
+                          <div className="reviews__avatar-wrapper user__avatar-wrapper">
+                            <img className="reviews__avatar user__avatar" src={review.picture} width="54" height="54" alt="Reviews avatar"/>
                           </div>
+                          <span className="reviews__user-name">{review.name}</span>
                         </div>
-                        <p className="reviews__text">
-                          A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.
-                        </p>
-                        <time className="reviews__time" dateTime="2019-04-24">April 2019</time>
-                      </div>
-                    </li>
+                        <div className="reviews__info">
+                          <div className="reviews__rating rating">
+                            <div className="reviews__stars rating__stars">
+                              <span style={{width: (20 * Math.round(review.rating)) + `%`}}></span>
+                              <span className="visually-hidden">Rating</span>
+                            </div>
+                          </div>
+                          <p className="reviews__text">
+                            {review.comment}
+                          </p>
+                          <time className="reviews__time" dateTime="2019-04-24">{review.date.toLocaleDateString(`en-US`, {year: `numeric`, month: `long`})}</time>
+                        </div>
+                      </li>
+                    ))}
                   </ul>
                   <form className="reviews__form form" action="#" method="post">
                     <label className="reviews__label form__label" htmlFor="review">Your review</label>
@@ -351,6 +354,15 @@ OfferScreen.propTypes = {
           isSuper: PropTypes.bool.isRequired
         }).isRequired,
         isFavorite: PropTypes.bool.isRequired
+      }).isRequired
+  ).isRequired,
+  reviews: PropTypes.arrayOf(
+      PropTypes.shape({
+        picture: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        rating: PropTypes.number.isRequired,
+        date: PropTypes.object.isRequired,
+        comment: PropTypes.string.isRequired
       }).isRequired
   ).isRequired
 };

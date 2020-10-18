@@ -8,7 +8,7 @@ import AuthScreen from "../auth-screen/auth-screen";
 
 
 const App = (props) => {
-  const {numberPlaces, offers} = props;
+  const {numberPlaces, offers, reviews} = props;
 
   return (
     <BrowserRouter>
@@ -20,7 +20,7 @@ const App = (props) => {
           <FavoritesScreen />
         </Route>
         <Route exact path="/offer/:id"
-          render={(params) => <OfferScreen offers={offers} {...params}/>}
+          render={(params) => <OfferScreen offers={offers} reviews={reviews} {...params}/>}
         />
         <Route exact path="/login">
           <AuthScreen />
@@ -32,7 +32,8 @@ const App = (props) => {
 
 App.propTypes = {
   numberPlaces: PropTypes.number.isRequired,
-  offers: PropTypes.array.isRequired
+  offers: PropTypes.array.isRequired,
+  reviews: PropTypes.array.isRequired
 };
 
 
