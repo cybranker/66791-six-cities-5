@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {OfferType} from "../../const";
+import {Link} from "react-router-dom";
 
 const FavoritesScreen = ({offers}) => {
   const favoriteOffers = offers.filter((offer) => offer.isFavorite);
@@ -11,18 +12,18 @@ const FavoritesScreen = ({offers}) => {
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <a className="header__logo-link" href="main.html">
+              <Link to="/" className="header__logo-link">
                 <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41"/>
-              </a>
+              </Link>
             </div>
             <nav className="header__nav">
               <ul className="header__nav-list">
                 <li className="header__nav-item user">
-                  <a className="header__nav-link header__nav-link--profile" href="#">
+                  <Link to="/favorites" className="header__nav-link header__nav-link--profile">
                     <div className="header__avatar-wrapper user__avatar-wrapper">
                     </div>
                     <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </nav>
@@ -44,12 +45,12 @@ const FavoritesScreen = ({offers}) => {
                   </div>
                 </div>
                 <div className="favorites__places">
-                  {favoriteOffers.map(({pictures, title, type, rating, price, isFavorite}, i) => (
+                  {favoriteOffers.map(({id, pictures, title, type, rating, price, isFavorite}, i) => (
                     <article key={`favorite-offer-${i}`} className="favorites__card place-card">
                       <div className="favorites__image-wrapper place-card__image-wrapper">
-                        <a href="#">
+                        <Link to={`/offer/${id}`}>
                           <img className="place-card__image" src={pictures[0].src} width="150" height="110" alt="Place image"/>
-                        </a>
+                        </Link>
                       </div>
                       <div className="favorites__card-info place-card__info">
                         <div className="place-card__price-wrapper">
@@ -71,7 +72,7 @@ const FavoritesScreen = ({offers}) => {
                           </div>
                         </div>
                         <h2 className="place-card__name">
-                          <a href="#">{title}</a>
+                          <Link to={`/offer/${id}`}>{title}</Link>
                         </h2>
                         <p className="place-card__type">{type.charAt(0).toUpperCase() + type.slice(1)}</p>
                       </div>
@@ -84,9 +85,9 @@ const FavoritesScreen = ({offers}) => {
         </div>
       </main>
       <footer className="footer container">
-        <a className="footer__logo-link" href="main.html">
+        <Link to="/" className="footer__logo-link">
           <img className="footer__logo" src="img/logo.svg" alt="6 cities logo" width="64" height="33"/>
-        </a>
+        </Link>
       </footer>
     </div>
   );
@@ -95,6 +96,7 @@ const FavoritesScreen = ({offers}) => {
 FavoritesScreen.propTypes = {
   offers: PropTypes.arrayOf(
       PropTypes.shape({
+        id: PropTypes.number.isRequired,
         city: PropTypes.string.isRequired,
         pictures: PropTypes.arrayOf(PropTypes.shape({
           src: PropTypes.string.isRequired,

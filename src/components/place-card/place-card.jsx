@@ -1,6 +1,7 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import {OfferType} from "../../const";
+import {Link} from "react-router-dom";
 
 class PlaceCard extends PureComponent {
   constructor(props) {
@@ -9,6 +10,7 @@ class PlaceCard extends PureComponent {
 
   render() {
     const {
+      id,
       pictures,
       isPremium,
       price,
@@ -24,9 +26,9 @@ class PlaceCard extends PureComponent {
           <span>Premium</span>
         </div>}
         <div className="cities__image-wrapper place-card__image-wrapper">
-          <a href="#">
+          <Link to={`/offer/${id}`}>
             <img className="place-card__image" src={pictures[0].src} width="260" height="200" alt={pictures[0].description}/>
-          </a>
+          </Link>
         </div>
         <div className="place-card__info">
           <div className="place-card__price-wrapper">
@@ -48,7 +50,7 @@ class PlaceCard extends PureComponent {
             </div>
           </div>
           <h2 className="place-card__name">
-            <a href="#">{title}</a>
+            <Link to={`/offer/${id}`}>{title}</Link>
           </h2>
           <p className="place-card__type">{type.charAt(0).toUpperCase() + type.slice(1)}</p>
         </div>
@@ -60,6 +62,7 @@ class PlaceCard extends PureComponent {
 PlaceCard.propTypes = {
   onHover: PropTypes.func.isRequired,
   offer: PropTypes.shape({
+    id: PropTypes.number.isRequired,
     city: PropTypes.string.isRequired,
     pictures: PropTypes.arrayOf(PropTypes.shape({
       src: PropTypes.string.isRequired,

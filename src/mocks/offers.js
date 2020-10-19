@@ -3,6 +3,7 @@ import {AVATAR_URL} from "../const";
 const PICTURE_URL = `http://picsum.photos/248/152`;
 
 export default [{
+  id: 0,
   city: `Amsterdam`,
   pictures: [{
     src: `${PICTURE_URL}?r=${Math.random()}`,
@@ -38,6 +39,7 @@ export default [{
   },
   isFavorite: false
 }, {
+  id: 1,
   city: `Amsterdam`,
   pictures: [{
     src: `${PICTURE_URL}?r=${Math.random()}`,
@@ -90,6 +92,7 @@ export default [{
   },
   isFavorite: true
 }, {
+  id: 2,
   city: `Amsterdam`,
   pictures: [{
     src: `${PICTURE_URL}?r=${Math.random()}`,
@@ -128,6 +131,7 @@ export default [{
   },
   isFavorite: true
 }, {
+  id: 3,
   city: `Amsterdam`,
   pictures: [{
     src: `${PICTURE_URL}?r=${Math.random()}`,

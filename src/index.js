@@ -5,7 +5,7 @@ import offers from "./mocks/offers";
 import reviews from "./mocks/reviews";
 
 
-const NUMBER_PLACES = 236;
+const NUMBER_PLACES = 4;
 
 ReactDOM.render(
     <App
