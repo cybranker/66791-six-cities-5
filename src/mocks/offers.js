@@ -37,7 +37,11 @@ export default [{
     name: `Valera`,
     isSuper: true
   },
-  isFavorite: false
+  isFavorite: false,
+  coordinates: {
+    x: 4.85309666406198,
+    y: 52.3909553943508
+  }
 }, {
   id: 1,
   city: `Amsterdam`,
@@ -90,7 +94,11 @@ export default [{
     name: `Petka`,
     isSuper: true
   },
-  isFavorite: true
+  isFavorite: true,
+  coordinates: {
+    x: 4.85309666406198,
+    y: 52.369553943508
+  }
 }, {
   id: 2,
   city: `Amsterdam`,
@@ -129,7 +137,11 @@ export default [{
     name: `Natasha`,
     isSuper: false
   },
-  isFavorite: true
+  isFavorite: true,
+  coordinates: {
+    x: 4.929309666406198,
+    y: 52.3909553943508
+  }
 }, {
   id: 3,
   city: `Amsterdam`,
@@ -164,5 +176,9 @@ export default [{
     name: `Galya`,
     isSuper: true
   },
-  isFavorite: false
+  isFavorite: false,
+  coordinates: {
+    x: 4.939309666406198,
+    y: 52.3809553943508
+  }
 }];
