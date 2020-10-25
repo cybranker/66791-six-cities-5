@@ -39,8 +39,8 @@ export default [{
   },
   isFavorite: false,
   coordinates: {
-    x: 4.85309666406198,
-    y: 52.3909553943508
+    lon: 4.85309666406198,
+    lat: 52.3909553943508
   }
 }, {
   id: 1,
@@ -96,8 +96,8 @@ export default [{
   },
   isFavorite: true,
   coordinates: {
-    x: 4.85309666406198,
-    y: 52.369553943508
+    lon: 4.85309666406198,
+    lat: 52.369553943508
   }
 }, {
   id: 2,
@@ -139,8 +139,8 @@ export default [{
   },
   isFavorite: true,
   coordinates: {
-    x: 4.929309666406198,
-    y: 52.3909553943508
+    lon: 4.929309666406198,
+    lat: 52.3909553943508
   }
 }, {
   id: 3,
@@ -178,7 +178,7 @@ export default [{
   },
   isFavorite: false,
   coordinates: {
-    x: 4.939309666406198,
-    y: 52.3809553943508
+    lon: 4.939309666406198,
+    lat: 52.3809553943508
   }
 }];
