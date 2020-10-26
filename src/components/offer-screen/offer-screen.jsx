@@ -14,6 +14,7 @@ class OfferScreen extends PureComponent {
     const {offers, reviews} = this.props;
     const id = this.props.match.params.id;
     const offer = offers[id];
+    const currentReviews = reviews.filter((review) => review.id === parseInt(id, 10));
 
     if (id >= offers.length || !offer) {
       return (
@@ -138,8 +139,8 @@ class OfferScreen extends PureComponent {
                   </div>
                 </div>
                 <section className="property__reviews reviews">
-                  <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
-                  <ReviewsList reviews={reviews} />
+                  <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{currentReviews[0].reviews.length}</span></h2>
+                  <ReviewsList reviews={currentReviews[0].reviews} />
                   <ReviewForm/>
                 </section>
               </div>
@@ -291,11 +292,16 @@ OfferScreen.propTypes = {
   ).isRequired,
   reviews: PropTypes.arrayOf(
       PropTypes.shape({
-        picture: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired,
-        rating: PropTypes.number.isRequired,
-        date: PropTypes.object.isRequired,
-        comment: PropTypes.string.isRequired
+        id: PropTypes.number.isRequired,
+        reviews: PropTypes.arrayOf(
+            PropTypes.shape({
+              picture: PropTypes.string.isRequired,
+              name: PropTypes.string.isRequired,
+              rating: PropTypes.number.isRequired,
+              date: PropTypes.object.isRequired,
+              comment: PropTypes.string.isRequired
+            }).isRequired
+        ).isRequired
       }).isRequired
   ).isRequired
 };
