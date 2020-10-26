@@ -87,7 +87,11 @@ PlaceCard.propTypes = {
       name: PropTypes.string.isRequired,
       isSuper: PropTypes.bool.isRequired
     }).isRequired,
-    isFavorite: PropTypes.bool.isRequired
+    isFavorite: PropTypes.bool.isRequired,
+    coordinates: PropTypes.shape({
+      lon: PropTypes.number.isRequired,
+      lat: PropTypes.number.isRequired
+    }).isRequired
   }).isRequired
 };
 
