@@ -4,6 +4,7 @@ import {Link, Redirect} from 'react-router-dom';
 import {OfferType} from "../../const";
 import ReviewsList from "../reviews-list/reviews-list";
 import ReviewForm from "../review-form/review-form";
+import Map from "../map/map";
 
 class OfferScreen extends PureComponent {
   constructor(props) {
@@ -14,6 +15,8 @@ class OfferScreen extends PureComponent {
     const {offers, reviews} = this.props;
     const id = this.props.match.params.id;
     const offer = offers[id];
+    const restOffers = [...offers];
+    restOffers.splice(id, 1);
     const currentReviews = reviews.filter((review) => review.id === parseInt(id, 10));
 
     if (id >= offers.length || !offer) {
@@ -145,7 +148,9 @@ class OfferScreen extends PureComponent {
                 </section>
               </div>
             </div>
-            <section className="property__map map"></section>
+            <section className="property__map map">
+              <Map offers={restOffers}/>
+            </section>
           </section>
           <div className="container">
             <section className="near-places places">
