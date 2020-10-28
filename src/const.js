@@ -4,3 +4,8 @@ export const OfferType = {
   HOUSE: `house`,
   HOTEL: `hotel`
 };
+
+export const PlaceType = {
+  CITIES: `cities`,
+  NEAR: `near`
+};
