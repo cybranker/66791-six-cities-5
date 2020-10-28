@@ -14,9 +14,8 @@ class OfferScreen extends PureComponent {
   render() {
     const {offers, reviews} = this.props;
     const id = this.props.match.params.id;
-    const offer = offers[id];
     const restOffers = [...offers];
-    restOffers.splice(id, 1);
+    const offer = restOffers.splice(id, 1)[0];
     const currentReviews = reviews.filter((review) => review.id === parseInt(id, 10));
 
     if (id >= offers.length || !offer) {
