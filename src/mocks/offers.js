@@ -1,5 +1,3 @@
-import {AVATAR_URL} from "../const";
-
 const PICTURE_URL = `http://picsum.photos/248/152`;
 
 export default [{
@@ -33,7 +31,7 @@ export default [{
     `Cabel TV`
   ],
   manager: {
-    picture: `${AVATAR_URL}/${Math.random()}`,
+    picture: `https://avatarfiles.alphacoders.com/254/254847.jpg`,
     name: `Valera`,
     isSuper: true
   },
@@ -90,7 +88,7 @@ export default [{
     `Cabel TV`
   ],
   manager: {
-    picture: `${AVATAR_URL}/${Math.random()}`,
+    picture: `https://avatarfiles.alphacoders.com/254/254925.png`,
     name: `Petka`,
     isSuper: true
   },
@@ -133,7 +131,7 @@ export default [{
     `Cabel TV`
   ],
   manager: {
-    picture: `${AVATAR_URL}/${Math.random()}`,
+    picture: `https://avatarfiles.alphacoders.com/254/254981.jpg`,
     name: `Natasha`,
     isSuper: false
   },
@@ -172,7 +170,7 @@ export default [{
     `Kitchen`
   ],
   manager: {
-    picture: `${AVATAR_URL}/${Math.random()}`,
+    picture: `https://avatarfiles.alphacoders.com/254/254912.png`,
     name: `Galya`,
     isSuper: true
   },

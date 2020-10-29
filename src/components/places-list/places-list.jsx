@@ -11,12 +11,12 @@ class PlacesList extends PureComponent {
   }
 
   render() {
-    const {offers} = this.props;
+    const {className, placeType, offers} = this.props;
 
     return (
-      <div className="cities__places-list places__list tabs__content">
+      <div className={`places__list ${className}`}>
         {offers.map((offer, i) => (
-          <PlaceCard key={`offer-${i}`} offer={offer} onHover={() => this.setState({offerActive: offer})} />
+          <PlaceCard key={`offer-${i}`} placeType={placeType} offer={offer} onHover={() => this.setState({offerActive: offer})} />
         ))}
       </div>
     );
@@ -24,6 +24,8 @@ class PlacesList extends PureComponent {
 }
 
 PlacesList.propTypes = {
+  placeType: PropTypes.string.isRequired,
+  className: PropTypes.string.isRequired,
   offers: PropTypes.array.isRequired
 };
 

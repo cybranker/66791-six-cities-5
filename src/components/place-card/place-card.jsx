@@ -2,6 +2,7 @@ import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import {OfferType} from "../../const";
 import {Link} from "react-router-dom";
+import {PlaceType} from "../../const";
 
 class PlaceCard extends PureComponent {
   constructor(props) {
@@ -19,13 +20,14 @@ class PlaceCard extends PureComponent {
       rating,
       isFavorite
     } = this.props.offer;
+    const {placeType} = this.props;
 
     return (
-      <article className="cities__place-card place-card" onMouseEnter={this.props.onHover}>
+      <article className={`${(placeType === PlaceType.CITIES) ? `cities__place-card` : `near-places__card`} place-card`} onMouseEnter={this.props.onHover}>
         {isPremium && <div className="place-card__mark">
           <span>Premium</span>
         </div>}
-        <div className="cities__image-wrapper place-card__image-wrapper">
+        <div className={`${(placeType === PlaceType.CITIES) ? `cities__image-wrapper` : `near-places__image-wrapper`} place-card__image-wrapper`}>
           <Link to={`/offer/${id}`}>
             <img className="place-card__image" src={pictures[0].src} width="260" height="200" alt={pictures[0].description}/>
           </Link>
@@ -60,6 +62,7 @@ class PlaceCard extends PureComponent {
 }
 
 PlaceCard.propTypes = {
+  placeType: PropTypes.string.isRequired,
   onHover: PropTypes.func.isRequired,
   offer: PropTypes.shape({
     id: PropTypes.number.isRequired,
