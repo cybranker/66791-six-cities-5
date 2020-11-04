@@ -4,10 +4,12 @@ export const ActionType = {
 };
 
 export const ActionCreator = {
-  changeCity: () => ({
+  changeCity: (city) => ({
     type: ActionType.CHANGE_CITY,
+    payload: city
   }),
-  getListOffers: () => ({
-    type: ActionType.GET_LIST_OFFERS
+  getListOffers: (city) => ({
+    type: ActionType.GET_LIST_OFFERS,
+    payload: city
   })
 };

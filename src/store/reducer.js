@@ -1,5 +1,6 @@
 import {extend} from "../utils";
 import {ActionType} from "./action";
+import offers from "../mocks/offers";
 
 const initialState = {
   city: `Amsterdam`,
@@ -14,7 +15,7 @@ export const reducer = (state = initialState, action) => {
       });
     case ActionType.GET_LIST_OFFERS:
       return extend(state, {
-        offers: action.payload
+        offers: initialState.offers.filter((offer) => offer.city === action.payload)
       });
     default:
       return state;

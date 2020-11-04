@@ -22,9 +22,9 @@ const App = (props) => {
         <Route exact path="/login">
           <AuthScreen />
         </Route>
-        <Route exact path="/:city?">
-          <MainScreen numberPlaces={numberPlaces} offers={offers} />
-        </Route>
+        <Route exact path="/:city?"
+          render={(params) => <MainScreen numberPlaces={numberPlaces} offers={offers} {...params}/>}
+        />
       </Switch>
     </BrowserRouter>
   );

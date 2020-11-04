@@ -1,11 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
+import {connect} from "react-redux";
+import {ActionCreator} from "../../store/action";
 import CitiesPlacesList from "../cities-places-list/cities-places-list";
 import Map from "../map/map";
+import {upperFirst} from "../../utils";
 
 const MainScreen = (props) => {
-  const {numberPlaces, offers} = props;
+  const city = props.match.params.city;
+  const {numberPlaces, offers, changeCity, getListOffers} = props;
 
   return (
     <div className="page page--gray page--main">
@@ -38,32 +42,50 @@ const MainScreen = (props) => {
           <section className="locations container">
             <ul className="locations__list tabs__list">
               <li className="locations__item">
-                <Link to="/paris" className="locations__item-link tabs__item">
+                <Link to="/paris" onClick={() => {
+                  changeCity(`Paris`);
+                  getListOffers(`Paris`);
+                }} className="locations__item-link tabs__item">
                   <span>Paris</span>
                 </Link>
               </li>
               <li className="locations__item">
-                <Link to="/cologne" className="locations__item-link tabs__item">
+                <Link to="/cologne" onClick={() => {
+                  changeCity(`Cologne`);
+                  getListOffers(`Cologne`);
+                }} className="locations__item-link tabs__item">
                   <span>Cologne</span>
                 </Link>
               </li>
               <li className="locations__item">
-                <Link to="/brussels" className="locations__item-link tabs__item">
+                <Link to="/brussels" onClick={() => {
+                  changeCity(`Brussels`);
+                  getListOffers(`Brussels`);
+                }} className="locations__item-link tabs__item">
                   <span>Brussels</span>
                 </Link>
               </li>
               <li className="locations__item">
-                <Link to="/amsterdam" className="locations__item-link tabs__item tabs__item--active">
+                <Link to="/amsterdam" onClick={() => {
+                  changeCity(`Amsterdam`);
+                  getListOffers(`Amsterdam`);
+                }} className="locations__item-link tabs__item tabs__item--active">
                   <span>Amsterdam</span>
                 </Link>
               </li>
               <li className="locations__item">
-                <Link to="/hamburg" className="locations__item-link tabs__item">
+                <Link to="/hamburg" onClick={() => {
+                  changeCity(`Hamburg`);
+                  getListOffers(`Hamburg`);
+                }} className="locations__item-link tabs__item">
                   <span>Hamburg</span>
                 </Link>
               </li>
               <li className="locations__item">
-                <Link to="/dusseldorf" className="locations__item-link tabs__item">
+                <Link to="/dusseldorf" onClick={() => {
+                  changeCity(`Dusseldorf`);
+                  getListOffers(`Dusseldorf`);
+                }} className="locations__item-link tabs__item">
                   <span>Dusseldorf</span>
                 </Link>
               </li>
@@ -74,7 +96,7 @@ const MainScreen = (props) => {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{numberPlaces} places to stay in Amsterdam</b>
+              <b className="places__found">{offers.length} places to stay in {upperFirst(city)}</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex="0">
@@ -109,5 +131,19 @@ MainScreen.propTypes = {
   offers: PropTypes.array.isRequired
 };
 
+const mapStateToProps = (state) => ({
+  city: state.city,
+  offers: state.offers
+});
 
-export default MainScreen;
+const mapDispatchToProps = (dispatch) => ({
+  changeCity(city) {
+    dispatch(ActionCreator.changeCity(city));
+  },
+  getListOffers(city) {
+    dispatch(ActionCreator.getListOffers(city));
+  }
+});
+
+export {MainScreen};
+export default connect(mapStateToProps, mapDispatchToProps)(MainScreen);
