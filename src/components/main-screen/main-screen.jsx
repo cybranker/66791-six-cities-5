@@ -9,7 +9,7 @@ import {upperFirst} from "../../utils";
 
 const MainScreen = (props) => {
   const city = props.match.params.city;
-  const {numberPlaces, offers, changeCity, getListOffers} = props;
+  const {offers, changeCity, getListOffers} = props;
 
   return (
     <div className="page page--gray page--main">
@@ -127,8 +127,14 @@ const MainScreen = (props) => {
 };
 
 MainScreen.propTypes = {
-  numberPlaces: PropTypes.number.isRequired,
-  offers: PropTypes.array.isRequired
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      city: PropTypes.string.isRequired
+    }).isRequired
+  }).isRequired,
+  offers: PropTypes.array.isRequired,
+  changeCity: PropTypes.func.isRequired,
+  getListOffers: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({

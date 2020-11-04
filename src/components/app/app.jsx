@@ -6,9 +6,8 @@ import OfferScreen from "../offer-screen/offer-screen";
 import FavoritesScreen from "../favorites-screen/favorites-screen";
 import AuthScreen from "../auth-screen/auth-screen";
 
-
 const App = (props) => {
-  const {numberPlaces, offers, reviews} = props;
+  const {offers, reviews} = props;
 
   return (
     <BrowserRouter>
@@ -23,7 +22,7 @@ const App = (props) => {
           <AuthScreen />
         </Route>
         <Route exact path="/:city?"
-          render={(params) => <MainScreen numberPlaces={numberPlaces} offers={offers} {...params}/>}
+          render={(params) => <MainScreen offers={offers} {...params}/>}
         />
       </Switch>
     </BrowserRouter>
@@ -31,7 +30,6 @@ const App = (props) => {
 };
 
 App.propTypes = {
-  numberPlaces: PropTypes.number.isRequired,
   offers: PropTypes.array.isRequired,
   reviews: PropTypes.array.isRequired
 };
