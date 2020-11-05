@@ -2,7 +2,14 @@ const PICTURE_URL = `http://picsum.photos/248/152`;
 
 export default [{
   id: 0,
-  city: `Amsterdam`,
+  city: {
+    location: {
+      lat: 52.370216,
+      lon: 4.895168,
+      zoom: 10
+    },
+    name: `Amsterdam`
+  },
   pictures: [{
     src: `${PICTURE_URL}?r=${Math.random()}`,
     description: `Photo kitchen`
@@ -42,7 +49,14 @@ export default [{
   }
 }, {
   id: 1,
-  city: `Amsterdam`,
+  city: {
+    location: {
+      lat: 52.370216,
+      lon: 4.895168,
+      zoom: 10
+    },
+    name: `Amsterdam`
+  },
   pictures: [{
     src: `${PICTURE_URL}?r=${Math.random()}`,
     description: `Photo kitchen`
@@ -99,7 +113,14 @@ export default [{
   }
 }, {
   id: 2,
-  city: `Amsterdam`,
+  city: {
+    location: {
+      lat: 52.370216,
+      lon: 4.895168,
+      zoom: 10
+    },
+    name: `Amsterdam`
+  },
   pictures: [{
     src: `${PICTURE_URL}?r=${Math.random()}`,
     description: `Photo kitchen`
@@ -142,7 +163,60 @@ export default [{
   }
 }, {
   id: 3,
-  city: `Amsterdam`,
+  city: {
+    location: {
+      lat: 52.370216,
+      lon: 4.895168,
+      zoom: 10
+    },
+    name: `Amsterdam`
+  },
+  pictures: [{
+    src: `${PICTURE_URL}?r=${Math.random()}`,
+    description: `Photo kitchen`
+  }, {
+    src: `${PICTURE_URL}?r=${Math.random()}`,
+    description: `Photo living room`
+  }, {
+    src: `${PICTURE_URL}?r=${Math.random()}`,
+    description: `Photo toilet and bathroom`
+  }],
+  title: `Apartment near the sea`,
+  description: [
+    `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`,
+    `But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. `,
+    `Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure.`
+  ],
+  isPremium: false,
+  type: `apartment`,
+  rating: 1.3,
+  numberBedrooms: 2,
+  maxGuests: 4,
+  price: 80,
+  features: [
+    `Wi-Fi`,
+    `Kitchen`
+  ],
+  manager: {
+    picture: `https://avatarfiles.alphacoders.com/254/254912.png`,
+    name: `Galya`,
+    isSuper: true
+  },
+  isFavorite: false,
+  coordinates: {
+    lon: 4.939309666406198,
+    lat: 52.3809553943508
+  }
+}, {
+  id: 4,
+  city: {
+    location: {
+      lon: 4.895168,
+      lat: 52.370216,
+      zoom: 10
+    },
+    name: `Paris`
+  },
   pictures: [{
     src: `${PICTURE_URL}?r=${Math.random()}`,
     description: `Photo kitchen`

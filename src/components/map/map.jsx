@@ -59,7 +59,14 @@ Map.propTypes = {
   offers: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.number.isRequired,
-        city: PropTypes.string.isRequired,
+        city: PropTypes.shape({
+          location: PropTypes.shape({
+            lat: PropTypes.number.isRequired,
+            lon: PropTypes.number.isRequired,
+            zoom: PropTypes.number.isRequired
+          }).isRequired,
+          name: PropTypes.string.isRequired
+        }).isRequired,
         pictures: PropTypes.arrayOf(PropTypes.shape({
           src: PropTypes.string.isRequired,
           description: PropTypes.string.isRequired,

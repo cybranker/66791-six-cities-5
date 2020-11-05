@@ -15,7 +15,7 @@ export const reducer = (state = initialState, action) => {
       });
     case ActionType.GET_LIST_OFFERS:
       return extend(state, {
-        offers: initialState.offers.filter((offer) => offer.city === action.payload)
+        offers: initialState.offers
       });
     default:
       return state;

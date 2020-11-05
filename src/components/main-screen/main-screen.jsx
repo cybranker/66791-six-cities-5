@@ -8,8 +8,17 @@ import Map from "../map/map";
 import {upperFirst} from "../../utils";
 
 const MainScreen = (props) => {
-  const city = props.match.params.city;
   const {offers, changeCity, getListOffers} = props;
+  let {city} = props;
+  const cityParam = upperFirst(props.match.params.city);
+  console.log(city);
+  console.log(cityParam);
+
+  if (cityParam && cityParam !== city) {
+    city = cityParam;
+    changeCity(city);
+  }
+  console.log(props);
 
   return (
     <div className="page page--gray page--main">
@@ -44,7 +53,7 @@ const MainScreen = (props) => {
               <li className="locations__item">
                 <Link to="/paris" onClick={() => {
                   changeCity(`Paris`);
-                  getListOffers(`Paris`);
+                  getListOffers();
                 }} className="locations__item-link tabs__item">
                   <span>Paris</span>
                 </Link>
@@ -52,7 +61,7 @@ const MainScreen = (props) => {
               <li className="locations__item">
                 <Link to="/cologne" onClick={() => {
                   changeCity(`Cologne`);
-                  getListOffers(`Cologne`);
+                  getListOffers();
                 }} className="locations__item-link tabs__item">
                   <span>Cologne</span>
                 </Link>
@@ -60,7 +69,7 @@ const MainScreen = (props) => {
               <li className="locations__item">
                 <Link to="/brussels" onClick={() => {
                   changeCity(`Brussels`);
-                  getListOffers(`Brussels`);
+                  getListOffers();
                 }} className="locations__item-link tabs__item">
                   <span>Brussels</span>
                 </Link>
@@ -68,7 +77,7 @@ const MainScreen = (props) => {
               <li className="locations__item">
                 <Link to="/amsterdam" onClick={() => {
                   changeCity(`Amsterdam`);
-                  getListOffers(`Amsterdam`);
+                  getListOffers();
                 }} className="locations__item-link tabs__item tabs__item--active">
                   <span>Amsterdam</span>
                 </Link>
@@ -76,7 +85,7 @@ const MainScreen = (props) => {
               <li className="locations__item">
                 <Link to="/hamburg" onClick={() => {
                   changeCity(`Hamburg`);
-                  getListOffers(`Hamburg`);
+                  getListOffers();
                 }} className="locations__item-link tabs__item">
                   <span>Hamburg</span>
                 </Link>
@@ -84,7 +93,7 @@ const MainScreen = (props) => {
               <li className="locations__item">
                 <Link to="/dusseldorf" onClick={() => {
                   changeCity(`Dusseldorf`);
-                  getListOffers(`Dusseldorf`);
+                  getListOffers();
                 }} className="locations__item-link tabs__item">
                   <span>Dusseldorf</span>
                 </Link>
@@ -129,9 +138,10 @@ const MainScreen = (props) => {
 MainScreen.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.shape({
-      city: PropTypes.string.isRequired
+      city: PropTypes.string
     }).isRequired
   }).isRequired,
+  city: PropTypes.string.isRequired,
   offers: PropTypes.array.isRequired,
   changeCity: PropTypes.func.isRequired,
   getListOffers: PropTypes.func.isRequired,
@@ -139,15 +149,15 @@ MainScreen.propTypes = {
 
 const mapStateToProps = (state) => ({
   city: state.city,
-  offers: state.offers
+  offers: state.offers.filter((offer) => offer.city.name === state.city)
 });
 
 const mapDispatchToProps = (dispatch) => ({
   changeCity(city) {
     dispatch(ActionCreator.changeCity(city));
   },
-  getListOffers(city) {
-    dispatch(ActionCreator.getListOffers(city));
+  getListOffers() {
+    dispatch(ActionCreator.getListOffers());
   }
 });
 
