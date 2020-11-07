@@ -6,19 +6,18 @@ import {ActionCreator} from "../../store/action";
 import CitiesPlacesList from "../cities-places-list/cities-places-list";
 import Map from "../map/map";
 import {upperFirst} from "../../utils";
+import CitiesList from "../cities-list/cities-list";
 
 const MainScreen = (props) => {
   const {offers, changeCity, getListOffers} = props;
   let {city} = props;
-  const cityParam = upperFirst(props.match.params.city);
-  console.log(city);
-  console.log(cityParam);
 
-  if (cityParam && cityParam !== city) {
+  const cityParam = upperFirst(props.match.params.city);
+
+  if (cityParam && cityParam !== city.name) {
     city = cityParam;
     changeCity(city);
   }
-  console.log(props);
 
   return (
     <div className="page page--gray page--main">
@@ -49,7 +48,8 @@ const MainScreen = (props) => {
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
-            <ul className="locations__list tabs__list">
+            <CitiesList currentCity={city} changeCity={changeCity} getListOffers={getListOffers}/>
+            {/*<ul className="locations__list tabs__list">
               <li className="locations__item">
                 <Link to="/paris" onClick={() => {
                   changeCity(`Paris`);
@@ -98,14 +98,14 @@ const MainScreen = (props) => {
                   <span>Dusseldorf</span>
                 </Link>
               </li>
-            </ul>
+            </ul>*/}
           </section>
         </div>
         <div className="cities">
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{offers.length} places to stay in {upperFirst(city)}</b>
+              <b className="places__found">{offers.length} places to stay in {upperFirst(city.name)}</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex="0">
@@ -141,7 +141,13 @@ MainScreen.propTypes = {
       city: PropTypes.string
     }).isRequired
   }).isRequired,
-  city: PropTypes.string.isRequired,
+  city: PropTypes.shape({
+    location: PropTypes.shape({
+      lat: PropTypes.number.isRequired,
+      lon: PropTypes.number.isRequired,
+      zoom: PropTypes.number.isRequired
+    }).isRequired
+  }).isRequired,
   offers: PropTypes.array.isRequired,
   changeCity: PropTypes.func.isRequired,
   getListOffers: PropTypes.func.isRequired,
@@ -149,7 +155,7 @@ MainScreen.propTypes = {
 
 const mapStateToProps = (state) => ({
   city: state.city,
-  offers: state.offers.filter((offer) => offer.city.name === state.city)
+  offers: state.offers.filter((offer) => offer.city.name === state.city.name)
 });
 
 const mapDispatchToProps = (dispatch) => ({

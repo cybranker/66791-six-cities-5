@@ -8,44 +8,59 @@ import "../../../node_modules/leaflet/dist/leaflet.css";
 class Map extends PureComponent {
   constructor(props) {
     super(props);
+
+    this.city = [];
+    this.zoom = 0;
+    this.icon = null;
+    this.map = null;
+  }
+
+  renderPin(coordinates) {
+    const icon = this.icon;
+    const map = this.map;
+
+    leaflet
+      .marker(coordinates, {icon})
+      .addTo(map);
   }
 
   componentDidMount() {
     const {offers} = this.props;
-    const city = [52.38333, 4.9];
-    const icon = leaflet.icon({
+    this.city = [offers[0].city.location.lat, offers[0].city.location.lon];
+    this.icon = leaflet.icon({
       iconUrl: `img/pin.svg`,
       iconSize: [30, 30]
     });
-    const zoom = 12;
-    const map = leaflet.map(`map`, {
-      center: city,
-      zoom,
+    this.zoom = 12;
+    this.map = leaflet.map(`map`, {
+      center: this.city,
+      zoom: this.zoom,
       zoomControl: false,
       marker: true
     });
-    map.setView(city, zoom);
+    this.map.setView(this.city, this.zoom);
 
     leaflet
       .tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`, {
         attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`
       })
-      .addTo(map);
+      .addTo(this.map);
 
-    function renderPin(coordinates) {
-      leaflet
-        .marker(coordinates, {icon})
-        .addTo(map);
-    }
-
-    renderPin([52.3709553943508, 4.89309666406198]);
+    this.renderPin(this.city);
 
     offers.forEach((offer) => {
-      const {coordinates} = offer;
+      const {city, coordinates} = offer;
+      this.city = [city.location.lat, city.location.lon];
 
-      renderPin(coordinates);
+      this.renderPin(coordinates);
     });
+  }
 
+  componentDidUpdate() {
+    console.log(this.props);
+    /*const {offers} = this.props;
+    this.city = [offers[0].city.location.lat, offers[0].city.location.lon];
+    this.map.setView(this.city, this.zoom);*/
   }
 
   render() {

@@ -6,7 +6,7 @@ const ReviewsList = ({reviews}) => {
   return (
     <ul className="reviews__list">
       {reviews.map((review, i) => (
-        <ReviewsItem key={`review-${i}}`} review={review} />
+        <ReviewsItem key={`review-${i}`} review={review} />
       ))}
     </ul>
   );
