@@ -25,8 +25,9 @@ class Map extends PureComponent {
   }
 
   componentDidMount() {
-    const {offers} = this.props;
-    this.city = [offers[0].city.location.lat, offers[0].city.location.lon];
+    const {offers, currentCity} = this.props;
+    console.log(`currentCity`, currentCity);
+    this.city = [currentCity.location.lat, currentCity.location.lon];
     this.icon = leaflet.icon({
       iconUrl: `img/pin.svg`,
       iconSize: [30, 30]
@@ -49,18 +50,24 @@ class Map extends PureComponent {
     this.renderPin(this.city);
 
     offers.forEach((offer) => {
-      const {city, coordinates} = offer;
-      this.city = [city.location.lat, city.location.lon];
-
+      const {coordinates} = offer;
       this.renderPin(coordinates);
     });
   }
 
   componentDidUpdate() {
-    console.log(this.props);
-    /*const {offers} = this.props;
-    this.city = [offers[0].city.location.lat, offers[0].city.location.lon];
-    this.map.setView(this.city, this.zoom);*/
+    const {offers, currentCity} = this.props;
+
+    this.city = [currentCity.location.lat, currentCity.location.lon];
+    this.map.setView(this.city, this.zoom);
+
+    this.renderPin(this.city);
+    console.log(offers);
+    offers.forEach((offer) => {
+      const {coordinates} = offer;
+
+      this.renderPin(coordinates);
+    });
   }
 
   render() {

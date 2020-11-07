@@ -250,8 +250,8 @@ export default [{
   },
   isFavorite: false,
   coordinates: {
-    lon: 4.939309666406198,
-    lat: 52.3809553943508
+    lon: 2.332534790039063,
+    lat: 48.87013489622034
   }
 }, {
   id: 5,
@@ -297,8 +297,8 @@ export default [{
   },
   isFavorite: false,
   coordinates: {
-    lon: 4.85309666406198,
-    lat: 52.3909553943508
+    lon: 7.007217407226563,
+    lat: 50.961237934453365
   }
 }, {
   id: 6,
@@ -361,15 +361,15 @@ export default [{
   },
   isFavorite: true,
   coordinates: {
-    lon: 4.85309666406198,
-    lat: 52.369553943508
+    lon: 4.275741577148438,
+    lat: 50.88397594225127
   }
 }, {
   id: 7,
   city: {
     location: {
-      lat: 53.5753,
-      lon: 10.0153,
+      lat: 53.54948738572969,
+      lon: 9.998931884765625,
       zoom: 10
     },
     name: `Hamburg`
@@ -411,15 +411,15 @@ export default [{
   },
   isFavorite: true,
   coordinates: {
-    lon: 4.929309666406198,
-    lat: 52.3909553943508
+    lon: 10.081672668457033,
+    lat: 53.56478295204427
   }
 }, {
   id: 8,
   city: {
     location: {
-      lat: 51.2217,
-      lon: 6.77616,
+      lat: 51.22516285803612,
+      lon: 6.7753028869628915,
       zoom: 10
     },
     name: `Dusseldorf`
@@ -457,7 +457,7 @@ export default [{
   },
   isFavorite: false,
   coordinates: {
-    lon: 4.939309666406198,
-    lat: 52.3809553943508
+    lon: 6.785430908203126,
+    lat: 51.20215105735902
   }
 }];

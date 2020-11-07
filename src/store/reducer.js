@@ -11,7 +11,7 @@ export const reducer = (state = initialState, action) => {
   switch (action.type) {
     case ActionType.CHANGE_CITY:
       return extend(state, {
-        city: action.payload
+        city: typeof action.payload === `string` ? initialState.offers.find((it) => it.city.name === action.payload).city : action.payload
       });
     case ActionType.GET_LIST_OFFERS:
       return extend(state, {

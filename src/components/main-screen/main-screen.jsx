@@ -11,12 +11,12 @@ import CitiesList from "../cities-list/cities-list";
 const MainScreen = (props) => {
   const {offers, changeCity, getListOffers} = props;
   let {city} = props;
+  console.log(`offers`, offers);
 
   const cityParam = upperFirst(props.match.params.city);
 
   if (cityParam && cityParam !== city.name) {
-    city = cityParam;
-    changeCity(city);
+    changeCity(cityParam);
   }
 
   return (
@@ -49,56 +49,6 @@ const MainScreen = (props) => {
         <div className="tabs">
           <section className="locations container">
             <CitiesList currentCity={city} changeCity={changeCity} getListOffers={getListOffers}/>
-            {/*<ul className="locations__list tabs__list">
-              <li className="locations__item">
-                <Link to="/paris" onClick={() => {
-                  changeCity(`Paris`);
-                  getListOffers();
-                }} className="locations__item-link tabs__item">
-                  <span>Paris</span>
-                </Link>
-              </li>
-              <li className="locations__item">
-                <Link to="/cologne" onClick={() => {
-                  changeCity(`Cologne`);
-                  getListOffers();
-                }} className="locations__item-link tabs__item">
-                  <span>Cologne</span>
-                </Link>
-              </li>
-              <li className="locations__item">
-                <Link to="/brussels" onClick={() => {
-                  changeCity(`Brussels`);
-                  getListOffers();
-                }} className="locations__item-link tabs__item">
-                  <span>Brussels</span>
-                </Link>
-              </li>
-              <li className="locations__item">
-                <Link to="/amsterdam" onClick={() => {
-                  changeCity(`Amsterdam`);
-                  getListOffers();
-                }} className="locations__item-link tabs__item tabs__item--active">
-                  <span>Amsterdam</span>
-                </Link>
-              </li>
-              <li className="locations__item">
-                <Link to="/hamburg" onClick={() => {
-                  changeCity(`Hamburg`);
-                  getListOffers();
-                }} className="locations__item-link tabs__item">
-                  <span>Hamburg</span>
-                </Link>
-              </li>
-              <li className="locations__item">
-                <Link to="/dusseldorf" onClick={() => {
-                  changeCity(`Dusseldorf`);
-                  getListOffers();
-                }} className="locations__item-link tabs__item">
-                  <span>Dusseldorf</span>
-                </Link>
-              </li>
-            </ul>*/}
           </section>
         </div>
         <div className="cities">
@@ -125,7 +75,7 @@ const MainScreen = (props) => {
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
-                <Map offers={offers}/>
+                <Map offers={offers} currentCity={city}/>
               </section>
             </div>
           </div>
