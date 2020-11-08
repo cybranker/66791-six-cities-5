@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import ReviewsItem from "../reviews-item/reviews-item";
+import reviewsListProp from "./reviews-list.prop";
 
 const ReviewsList = ({reviews}) => {
   return (
@@ -13,15 +14,7 @@ const ReviewsList = ({reviews}) => {
 };
 
 ReviewsList.propTypes = {
-  reviews: PropTypes.arrayOf(
-      PropTypes.shape({
-        picture: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired,
-        rating: PropTypes.number.isRequired,
-        date: PropTypes.object.isRequired,
-        comment: PropTypes.string.isRequired
-      }).isRequired
-  ).isRequired
+  reviews: reviewsListProp
 };
 
 export default ReviewsList;

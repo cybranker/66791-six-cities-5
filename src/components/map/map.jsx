@@ -1,6 +1,5 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
-import {OfferType} from "../../const";
 import leaflet from "leaflet";
 
 import "../../../node_modules/leaflet/dist/leaflet.css";
