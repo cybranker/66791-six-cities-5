@@ -172,6 +172,14 @@ OfferScreen.propTypes = {
       id: PropTypes.string.isRequired
     }).isRequired
   }).isRequired,
+  city: PropTypes.shape({
+    location: PropTypes.shape({
+      lat: PropTypes.number.isRequired,
+      lon: PropTypes.number.isRequired,
+      zoom: PropTypes.number.isRequired
+    }).isRequired,
+    name: PropTypes.string.isRequired
+  }).isRequired,
   offers: mainScreenProp,
   reviews: PropTypes.arrayOf(
       PropTypes.shape({

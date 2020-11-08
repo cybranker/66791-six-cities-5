@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import ReviewsItem from "../reviews-item/reviews-item";
 import reviewsListProp from "./reviews-list.prop";
 

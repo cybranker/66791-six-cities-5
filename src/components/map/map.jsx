@@ -26,7 +26,6 @@ class Map extends PureComponent {
 
   componentDidMount() {
     const {offers, currentCity} = this.props;
-    console.log(`currentCity`, currentCity);
     this.city = [currentCity.location.lat, currentCity.location.lon];
     this.icon = leaflet.icon({
       iconUrl: `img/pin.svg`,
@@ -62,7 +61,6 @@ class Map extends PureComponent {
     this.map.setView(this.city, this.zoom);
 
     this.renderPin(this.city);
-    console.log(offers);
     offers.forEach((offer) => {
       const {coordinates} = offer;
 
@@ -78,6 +76,14 @@ class Map extends PureComponent {
 }
 
 Map.propTypes = {
+  currentCity: PropTypes.shape({
+    location: PropTypes.shape({
+      lat: PropTypes.number.isRequired,
+      lon: PropTypes.number.isRequired,
+      zoom: PropTypes.number.isRequired
+    }).isRequired,
+    name: PropTypes.string.isRequired
+  }).isRequired,
   offers: mainScreenProp
 };
 
