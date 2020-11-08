@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import CitiesItem from "../cities-item/cities-item";
 
+import mainScreenProp from "../main-screen/main-screen.prop";
+
 const CitiesList = ({currentCity, offers, changeCity, getListOffers}) => {
   const cities = [];
 
@@ -21,6 +23,20 @@ const CitiesList = ({currentCity, offers, changeCity, getListOffers}) => {
       ))}
     </ul>
   );
+};
+
+CitiesList.propTypes = {
+  currentCity: PropTypes.shape({
+    location: PropTypes.shape({
+      lat: PropTypes.number.isRequired,
+      lon: PropTypes.number.isRequired,
+      zoom: PropTypes.number.isRequired
+    }).isRequired,
+    name: PropTypes.string.isRequired
+  }).isRequired,
+  offers: mainScreenProp,
+  changeCity: PropTypes.func.isRequired,
+  getListOffers: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({

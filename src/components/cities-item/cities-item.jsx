@@ -17,4 +17,18 @@ const CitiesItem = ({currentCity, city, changeCity, getListOffers}) => {
   );
 };
 
+CitiesItem.propTypes = {
+  currentCity: PropTypes.shape({
+    location: PropTypes.shape({
+      lat: PropTypes.number.isRequired,
+      lon: PropTypes.number.isRequired,
+      zoom: PropTypes.number.isRequired
+    }).isRequired,
+    name: PropTypes.string.isRequired
+  }).isRequired,
+  city: PropTypes.string.isRequired,
+  changeCity: PropTypes.func.isRequired,
+  getListOffers: PropTypes.func.isRequired
+};
+
 export default CitiesItem;

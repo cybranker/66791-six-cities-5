@@ -11,10 +11,7 @@ import CitiesList from "../cities-list/cities-list";
 import mainScreenProp from "./main-screen.prop";
 
 const MainScreen = (props) => {
-  const {offers, changeCity, getListOffers} = props;
-  let {city} = props;
-  console.log(`offers`, offers);
-
+  const {offers, city, changeCity, getListOffers} = props;
   const cityParam = upperFirst(props.match.params.city);
 
   if (cityParam && cityParam !== city.name) {
@@ -98,7 +95,8 @@ MainScreen.propTypes = {
       lat: PropTypes.number.isRequired,
       lon: PropTypes.number.isRequired,
       zoom: PropTypes.number.isRequired
-    }).isRequired
+    }).isRequired,
+    name: PropTypes.string.isRequired
   }).isRequired,
   offers: mainScreenProp,
   changeCity: PropTypes.func.isRequired,
