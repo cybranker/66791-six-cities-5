@@ -2,6 +2,8 @@ import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import PlaceCard from "../place-card/place-card";
 
+import mainScreenProp from "../main-screen/main-screen.prop";
+
 class PlacesList extends PureComponent {
   constructor(props) {
     super(props);
@@ -26,7 +28,7 @@ class PlacesList extends PureComponent {
 PlacesList.propTypes = {
   placeType: PropTypes.string.isRequired,
   className: PropTypes.string.isRequired,
-  offers: PropTypes.array.isRequired
+  offers: mainScreenProp
 };
 
 export default PlacesList;

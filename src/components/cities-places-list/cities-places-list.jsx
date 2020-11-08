@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import PlacesList from "../places-list/places-list";
 import {PlaceType} from "../../const";
 
+import mainScreenProp from "../main-screen/main-screen.prop";
+
 const CitiesPlacesList = (props) => {
   const {className = ``, ...restProps} = props;
 
@@ -13,7 +15,7 @@ const CitiesPlacesList = (props) => {
 
 CitiesPlacesList.propTypes = {
   className: PropTypes.string,
-  offers: PropTypes.array.isRequired
+  offers: mainScreenProp
 };
 
 export default CitiesPlacesList;

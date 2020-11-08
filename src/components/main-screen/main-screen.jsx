@@ -8,6 +8,8 @@ import Map from "../map/map";
 import {upperFirst} from "../../utils";
 import CitiesList from "../cities-list/cities-list";
 
+import mainScreenProp from "./main-screen.prop";
+
 const MainScreen = (props) => {
   const {offers, changeCity, getListOffers} = props;
   let {city} = props;
@@ -98,7 +100,7 @@ MainScreen.propTypes = {
       zoom: PropTypes.number.isRequired
     }).isRequired
   }).isRequired,
-  offers: PropTypes.array.isRequired,
+  offers: mainScreenProp,
   changeCity: PropTypes.func.isRequired,
   getListOffers: PropTypes.func.isRequired,
 };

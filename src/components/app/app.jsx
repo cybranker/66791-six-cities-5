@@ -6,6 +6,8 @@ import OfferScreen from "../offer-screen/offer-screen";
 import FavoritesScreen from "../favorites-screen/favorites-screen";
 import AuthScreen from "../auth-screen/auth-screen";
 
+import mainScreenProp from "../main-screen/main-screen.prop";
+
 const App = (props) => {
   const {offers, reviews} = props;
 
@@ -30,7 +32,7 @@ const App = (props) => {
 };
 
 App.propTypes = {
-  offers: PropTypes.array.isRequired,
+  offers: mainScreenProp,
   reviews: PropTypes.array.isRequired
 };
 

@@ -1,11 +1,13 @@
 import React, {PureComponent} from "react";
 import PropTypes from 'prop-types';
 import {Link, Redirect} from 'react-router-dom';
-import {OfferType} from "../../const";
+import {connect} from "react-redux";
 import ReviewsList from "../reviews-list/reviews-list";
 import ReviewForm from "../review-form/review-form";
 import Map from "../map/map";
 import NearPlacesList from "../near-places-list/near-places-list";
+
+import mainScreenProp from "../main-screen/main-screen.prop";
 
 class OfferScreen extends PureComponent {
   constructor(props) {
@@ -13,7 +15,7 @@ class OfferScreen extends PureComponent {
   }
 
   render() {
-    const {offers, reviews} = this.props;
+    const {offers, reviews, city} = this.props;
     const id = this.props.match.params.id;
     const restOffers = [...offers];
     const offer = restOffers.splice(id, 1)[0];
@@ -149,7 +151,7 @@ class OfferScreen extends PureComponent {
               </div>
             </div>
             <section className="property__map map">
-              <Map offers={restOffers}/>
+              <Map offers={restOffers} currentCity={city}/>
             </section>
           </section>
           <div className="container">
@@ -170,42 +172,7 @@ OfferScreen.propTypes = {
       id: PropTypes.string.isRequired
     }).isRequired
   }).isRequired,
-  offers: PropTypes.arrayOf(
-      PropTypes.shape({
-        city: PropTypes.shape({
-          location: PropTypes.shape({
-            lat: PropTypes.number.isRequired,
-            lon: PropTypes.number.isRequired,
-            zoom: PropTypes.number.isRequired
-          }).isRequired,
-          name: PropTypes.string.isRequired
-        }).isRequired,
-        pictures: PropTypes.arrayOf(PropTypes.shape({
-          src: PropTypes.string.isRequired,
-          description: PropTypes.string.isRequired,
-        })).isRequired,
-        title: PropTypes.string.isRequired,
-        description: PropTypes.array.isRequired,
-        isPremium: PropTypes.bool.isRequired,
-        type: PropTypes.oneOf([
-          OfferType.APARTMENT,
-          OfferType.HOTEL,
-          OfferType.HOUSE,
-          OfferType.ROOM
-        ]).isRequired,
-        rating: PropTypes.number.isRequired,
-        numberBedrooms: PropTypes.number.isRequired,
-        maxGuests: PropTypes.number.isRequired,
-        price: PropTypes.number.isRequired,
-        features: PropTypes.array.isRequired,
-        manager: PropTypes.shape({
-          picture: PropTypes.string.isRequired,
-          name: PropTypes.string.isRequired,
-          isSuper: PropTypes.bool.isRequired
-        }).isRequired,
-        isFavorite: PropTypes.bool.isRequired
-      }).isRequired
-  ).isRequired,
+  offers: mainScreenProp,
   reviews: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.number.isRequired,
@@ -222,4 +189,10 @@ OfferScreen.propTypes = {
   ).isRequired
 };
 
-export default OfferScreen;
+const mapStateToProps = (state) => ({
+  city: state.city,
+  offers: state.offers.filter((offer) => offer.city.name === state.city.name)
+});
+
+export {OfferScreen};
+export default connect(mapStateToProps)(OfferScreen);
