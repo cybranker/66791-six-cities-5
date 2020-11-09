@@ -1,8 +1,9 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
-import {OfferType} from "../../const";
 import {Link} from "react-router-dom";
 import {PlaceType} from "../../const";
+
+import placeCardProp from "./place-card.prop";
 
 class PlaceCard extends PureComponent {
   constructor(props) {
@@ -64,38 +65,7 @@ class PlaceCard extends PureComponent {
 PlaceCard.propTypes = {
   placeType: PropTypes.string.isRequired,
   onHover: PropTypes.func.isRequired,
-  offer: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    city: PropTypes.string.isRequired,
-    pictures: PropTypes.arrayOf(PropTypes.shape({
-      src: PropTypes.string.isRequired,
-      description: PropTypes.string.isRequired,
-    })).isRequired,
-    title: PropTypes.string.isRequired,
-    description: PropTypes.array.isRequired,
-    isPremium: PropTypes.bool.isRequired,
-    type: PropTypes.oneOf([
-      OfferType.APARTMENT,
-      OfferType.HOTEL,
-      OfferType.HOUSE,
-      OfferType.ROOM
-    ]).isRequired,
-    rating: PropTypes.number.isRequired,
-    numberBedrooms: PropTypes.number.isRequired,
-    maxGuests: PropTypes.number.isRequired,
-    price: PropTypes.number.isRequired,
-    features: PropTypes.array.isRequired,
-    manager: PropTypes.shape({
-      picture: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      isSuper: PropTypes.bool.isRequired
-    }).isRequired,
-    isFavorite: PropTypes.bool.isRequired,
-    coordinates: PropTypes.shape({
-      lon: PropTypes.number.isRequired,
-      lat: PropTypes.number.isRequired
-    }).isRequired
-  }).isRequired
+  offer: placeCardProp
 };
 
 export default PlaceCard;

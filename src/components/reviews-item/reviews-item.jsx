@@ -1,5 +1,5 @@
 import React from "react";
-import PropTypes from "prop-types";
+import reviewsItemProp from "./reviews-item.prop";
 
 const ReviewsItem = ({review}) => {
   return (
@@ -27,13 +27,7 @@ const ReviewsItem = ({review}) => {
 };
 
 ReviewsItem.propTypes = {
-  review: PropTypes.shape({
-    picture: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    rating: PropTypes.number.isRequired,
-    date: PropTypes.object.isRequired,
-    comment: PropTypes.string.isRequired
-  }).isRequired
+  review: reviewsItemProp
 };
 
 export default ReviewsItem;

@@ -1,11 +1,22 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
+import {connect} from "react-redux";
+import {ActionCreator} from "../../store/action";
 import CitiesPlacesList from "../cities-places-list/cities-places-list";
 import Map from "../map/map";
+import {upperFirst} from "../../utils";
+import CitiesList from "../cities-list/cities-list";
+
+import mainScreenProp from "./main-screen.prop";
 
 const MainScreen = (props) => {
-  const {numberPlaces, offers} = props;
+  const {offers, city, changeCity, getListOffers} = props;
+  const cityParam = upperFirst(props.match.params.city);
+
+  if (cityParam && cityParam !== city.name) {
+    changeCity(cityParam);
+  }
 
   return (
     <div className="page page--gray page--main">
@@ -36,45 +47,14 @@ const MainScreen = (props) => {
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
-            <ul className="locations__list tabs__list">
-              <li className="locations__item">
-                <Link to="/paris" className="locations__item-link tabs__item">
-                  <span>Paris</span>
-                </Link>
-              </li>
-              <li className="locations__item">
-                <Link to="/cologne" className="locations__item-link tabs__item">
-                  <span>Cologne</span>
-                </Link>
-              </li>
-              <li className="locations__item">
-                <Link to="/brussels" className="locations__item-link tabs__item">
-                  <span>Brussels</span>
-                </Link>
-              </li>
-              <li className="locations__item">
-                <Link to="/amsterdam" className="locations__item-link tabs__item tabs__item--active">
-                  <span>Amsterdam</span>
-                </Link>
-              </li>
-              <li className="locations__item">
-                <Link to="/hamburg" className="locations__item-link tabs__item">
-                  <span>Hamburg</span>
-                </Link>
-              </li>
-              <li className="locations__item">
-                <Link to="/dusseldorf" className="locations__item-link tabs__item">
-                  <span>Dusseldorf</span>
-                </Link>
-              </li>
-            </ul>
+            <CitiesList currentCity={city} changeCity={changeCity} getListOffers={getListOffers}/>
           </section>
         </div>
         <div className="cities">
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{numberPlaces} places to stay in Amsterdam</b>
+              <b className="places__found">{offers.length} places to stay in {upperFirst(city.name)}</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex="0">
@@ -94,7 +74,7 @@ const MainScreen = (props) => {
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
-                <Map offers={offers}/>
+                <Map offers={offers} currentCity={city}/>
               </section>
             </div>
           </div>
@@ -105,9 +85,37 @@ const MainScreen = (props) => {
 };
 
 MainScreen.propTypes = {
-  numberPlaces: PropTypes.number.isRequired,
-  offers: PropTypes.array.isRequired
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      city: PropTypes.string
+    }).isRequired
+  }).isRequired,
+  city: PropTypes.shape({
+    location: PropTypes.shape({
+      lat: PropTypes.number.isRequired,
+      lon: PropTypes.number.isRequired,
+      zoom: PropTypes.number.isRequired
+    }).isRequired,
+    name: PropTypes.string.isRequired
+  }).isRequired,
+  offers: mainScreenProp,
+  changeCity: PropTypes.func.isRequired,
+  getListOffers: PropTypes.func.isRequired,
 };
 
+const mapStateToProps = (state) => ({
+  city: state.city,
+  offers: state.offers.filter((offer) => offer.city.name === state.city.name)
+});
 
-export default MainScreen;
+const mapDispatchToProps = (dispatch) => ({
+  changeCity(city) {
+    dispatch(ActionCreator.changeCity(city));
+  },
+  getListOffers() {
+    dispatch(ActionCreator.getListOffers());
+  }
+});
+
+export {MainScreen};
+export default connect(mapStateToProps, mapDispatchToProps)(MainScreen);

@@ -6,9 +6,10 @@ import OfferScreen from "../offer-screen/offer-screen";
 import FavoritesScreen from "../favorites-screen/favorites-screen";
 import AuthScreen from "../auth-screen/auth-screen";
 
+import mainScreenProp from "../main-screen/main-screen.prop";
 
 const App = (props) => {
-  const {numberPlaces, offers, reviews} = props;
+  const {offers, reviews} = props;
 
   return (
     <BrowserRouter>
@@ -22,17 +23,16 @@ const App = (props) => {
         <Route exact path="/login">
           <AuthScreen />
         </Route>
-        <Route exact path="/:city?">
-          <MainScreen numberPlaces={numberPlaces} offers={offers} />
-        </Route>
+        <Route exact path="/:city?"
+          render={(params) => <MainScreen offers={offers} {...params}/>}
+        />
       </Switch>
     </BrowserRouter>
   );
 };
 
 App.propTypes = {
-  numberPlaces: PropTypes.number.isRequired,
-  offers: PropTypes.array.isRequired,
+  offers: mainScreenProp,
   reviews: PropTypes.array.isRequired
 };
 
