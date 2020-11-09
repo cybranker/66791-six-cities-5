@@ -6,15 +6,13 @@ import CitiesItem from "../cities-item/cities-item";
 import mainScreenProp from "../main-screen/main-screen.prop";
 
 const CitiesList = ({currentCity, offers, changeCity, getListOffers}) => {
-  const cities = [];
+  let cities = {};
 
   offers.forEach((offer) => {
-    const city = JSON.stringify(offer.city);
-
-    if (!cities.includes(city)) {
-      cities.push(city);
-    }
+    cities[offer.city.name] = offer.city;
   });
+
+  cities = Object.values(cities);
 
   return (
     <ul className="locations__list tabs__list">
