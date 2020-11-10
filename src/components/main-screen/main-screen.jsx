@@ -7,11 +7,22 @@ import CitiesPlacesList from "../cities-places-list/cities-places-list";
 import Map from "../map/map";
 import {upperFirst} from "../../utils";
 import CitiesList from "../cities-list/cities-list";
+import SortList from "../sort-list/sort-list";
+import {SortTypeName} from "../../const";
 
 import mainScreenProp from "./main-screen.prop";
 
 const MainScreen = (props) => {
-  const {offers, city, changeCity, getListOffers} = props;
+  const {
+    offers,
+    city,
+    isOpenSortList,
+    sortType,
+    changeCity,
+    getListOffers,
+    toggleSortList,
+    changeSortType
+  } = props;
   const cityParam = upperFirst(props.match.params.city);
 
   if (cityParam && cityParam !== city.name) {
@@ -57,18 +68,13 @@ const MainScreen = (props) => {
               <b className="places__found">{offers.length} places to stay in {upperFirst(city.name)}</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
-                <span className="places__sorting-type" tabIndex="0">
-                  Popular
+                <span className="places__sorting-type" tabIndex="0" onClick={toggleSortList}>
+                  {SortTypeName[sortType]}
                   <svg className="places__sorting-arrow" width="7" height="4">
                     <use xlinkHref="#icon-arrow-select"></use>
                   </svg>
                 </span>
-                <ul className="places__options places__options--custom places__options--opened">
-                  <li className="places__option places__option--active" tabIndex="0">Popular</li>
-                  <li className="places__option" tabIndex="0">Price: low to high</li>
-                  <li className="places__option" tabIndex="0">Price: high to low</li>
-                  <li className="places__option" tabIndex="0">Top rated first</li>
-                </ul>
+                <SortList isOpenSortList={isOpenSortList} sortType={sortType} toggleSortList={toggleSortList} changeSortType={changeSortType} />
               </form>
               <CitiesPlacesList offers={offers}/>
             </section>
@@ -105,7 +111,9 @@ MainScreen.propTypes = {
 
 const mapStateToProps = (state) => ({
   city: state.city,
-  offers: state.offers.filter((offer) => offer.city.name === state.city.name)
+  offers: state.offers.filter((offer) => offer.city.name === state.city.name),
+  isOpenSortList: state.isOpenSortList,
+  sortType: state.sortType
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -114,6 +122,12 @@ const mapDispatchToProps = (dispatch) => ({
   },
   getListOffers() {
     dispatch(ActionCreator.getListOffers());
+  },
+  toggleSortList() {
+    dispatch(ActionCreator.toggleSortList());
+  },
+  changeSortType(sortType) {
+    dispatch(ActionCreator.changeSortType(sortType));
   }
 });
 

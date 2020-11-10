@@ -1,10 +1,13 @@
 import {extend} from "../utils";
 import {ActionType} from "./action";
 import offers from "../mocks/offers";
+import {SortType} from "../const";
 
 const initialState = {
   city: offers[0].city,
-  offers
+  offers,
+  isOpenSortList: false,
+  sortType: SortType.DEFAULT
 };
 
 export const reducer = (state = initialState, action) => {
@@ -16,6 +19,14 @@ export const reducer = (state = initialState, action) => {
     case ActionType.GET_LIST_OFFERS:
       return extend(state, {
         offers: initialState.offers
+      });
+    case ActionType.TOGGLE_SORT_LIST:
+      return extend(state, {
+        isOpenSortList: !state.isOpenSortList
+      });
+    case ActionType.CHANGE_SORT_TYPE:
+      return extend(state, {
+        sortType: action.payload
       });
     default:
       return state;
