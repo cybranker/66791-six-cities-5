@@ -17,7 +17,8 @@ const PlacesList = ({className, placeType, offers, changeOfferActive}) => {
 PlacesList.propTypes = {
   placeType: PropTypes.string.isRequired,
   className: PropTypes.string.isRequired,
-  offers: mainScreenProp
+  offers: mainScreenProp,
+  changeOfferActive: PropTypes.func.isRequired
 };
 
 export default PlacesList;

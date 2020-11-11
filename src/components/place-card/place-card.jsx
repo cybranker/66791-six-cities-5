@@ -62,7 +62,8 @@ const PlaceCard = (props) => {
 
 PlaceCard.propTypes = {
   placeType: PropTypes.string.isRequired,
-  offer: placeCardProp
+  offer: placeCardProp,
+  changeOfferActive: PropTypes.func.isRequired
 };
 
 export default PlaceCard;

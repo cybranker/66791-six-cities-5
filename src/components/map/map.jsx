@@ -4,6 +4,11 @@ import leaflet from "leaflet";
 
 import "../../../node_modules/leaflet/dist/leaflet.css";
 import mainScreenProp from "../main-screen/main-screen.prop";
+import placeCardProp from "../place-card/place-card.prop";
+
+const ICON_SIZE = [30, 30];
+const ICON_SRC = `img/pin.svg`;
+const ACTIVE_ICON_SRC = `img/pin-active.svg`;
 
 class Map extends PureComponent {
   constructor(props) {
@@ -11,6 +16,14 @@ class Map extends PureComponent {
 
     this.city = [];
     this.zoom = 0;
+    this.pin = leaflet.icon({
+      iconUrl: ICON_SRC,
+      iconSize: ICON_SIZE
+    });
+    this.pinActive = leaflet.icon({
+      iconUrl: ACTIVE_ICON_SRC,
+      iconSize: ICON_SIZE
+    });
     this.icon = null;
     this.map = null;
   }
@@ -27,10 +40,7 @@ class Map extends PureComponent {
   componentDidMount() {
     const {offers, currentCity} = this.props;
     this.city = [currentCity.location.lat, currentCity.location.lon];
-    this.icon = leaflet.icon({
-      iconUrl: `img/pin.svg`,
-      iconSize: [30, 30]
-    });
+    this.icon = this.pin;
     this.zoom = 12;
     this.map = leaflet.map(`map`, {
       center: this.city,
@@ -55,14 +65,21 @@ class Map extends PureComponent {
   }
 
   componentDidUpdate() {
-    const {offers, currentCity} = this.props;
-
+    const {offers, currentCity, offerActive} = this.props;
     this.city = [currentCity.location.lat, currentCity.location.lon];
     this.map.setView(this.city, this.zoom);
+    this.icon = this.pin;
 
     this.renderPin(this.city);
+
     offers.forEach((offer) => {
       const {coordinates} = offer;
+
+      if (offer.id === offerActive.id) {
+        this.icon = this.pinActive;
+      } else {
+        this.icon = this.pin;
+      }
 
       this.renderPin(coordinates);
     });
@@ -84,7 +101,8 @@ Map.propTypes = {
     }).isRequired,
     name: PropTypes.string.isRequired
   }).isRequired,
-  offers: mainScreenProp
+  offers: mainScreenProp,
+  offerActive: PropTypes.oneOfType([PropTypes.shape(), placeCardProp]).isRequired
 };
 
 export default Map;

@@ -11,6 +11,7 @@ import SortList from "../sort-list/sort-list";
 import {SortType, SortTypeName} from "../../const";
 
 import mainScreenProp from "./main-screen.prop";
+import placeCardProp from "../place-card/place-card.prop";
 
 const MainScreen = (props) => {
   const {
@@ -30,8 +31,6 @@ const MainScreen = (props) => {
   if (cityParam && cityParam !== city.name) {
     changeCity(cityParam);
   }
-
-  console.log(`offerActive`, offerActive);
 
   switch (sortType) {
     case SortType.PRICE_LOW_TO_HIGH:
@@ -96,7 +95,7 @@ const MainScreen = (props) => {
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
-                <Map offers={offers} currentCity={city}/>
+                <Map offers={offers} currentCity={city} offerActive={offerActive}/>
               </section>
             </div>
           </div>
@@ -126,7 +125,9 @@ MainScreen.propTypes = {
   isOpenSortList: PropTypes.bool.isRequired,
   sortType: PropTypes.string.isRequired,
   toggleSortList: PropTypes.func.isRequired,
-  changeSortType: PropTypes.func.isRequired
+  changeSortType: PropTypes.func.isRequired,
+  offerActive: PropTypes.oneOfType([PropTypes.shape(), placeCardProp]).isRequired,
+  changeOfferActive: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
