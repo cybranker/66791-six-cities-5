@@ -19,7 +19,11 @@ const PlaceCard = (props) => {
   } = offer;
 
   return (
-    <article className={`${(placeType === PlaceType.CITIES) ? `cities__place-card` : `near-places__card`} place-card`} onMouseEnter={() => {changeOfferActive(offer)}}>
+    <article className={`${(placeType === PlaceType.CITIES) ? `cities__place-card` : `near-places__card`} place-card`} onMouseEnter={() => {
+      changeOfferActive(offer);
+    }} onMouseLeave={() => {
+      changeOfferActive({});
+    }}>
       {isPremium && <div className="place-card__mark">
         <span>Premium</span>
       </div>}
