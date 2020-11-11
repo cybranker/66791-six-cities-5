@@ -7,7 +7,8 @@ const initialState = {
   city: offers[0].city,
   offers,
   isOpenSortList: false,
-  sortType: SortType.DEFAULT
+  sortType: SortType.DEFAULT,
+  offerActive: {}
 };
 
 export const reducer = (state = initialState, action) => {
@@ -27,6 +28,10 @@ export const reducer = (state = initialState, action) => {
     case ActionType.CHANGE_SORT_TYPE:
       return extend(state, {
         sortType: action.payload
+      });
+    case ActionType.CHANGE_OFFER_ACTIVE:
+      return extend(state, {
+        offerActive: action.payload
       });
     default:
       return state;

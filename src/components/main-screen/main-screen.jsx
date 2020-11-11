@@ -20,7 +20,9 @@ const MainScreen = (props) => {
     changeCity,
     getListOffers,
     toggleSortList,
-    changeSortType
+    changeSortType,
+    offerActive,
+    changeOfferActive
   } = props;
   const cityParam = upperFirst(props.match.params.city);
   let {offers} = props;
@@ -28,6 +30,8 @@ const MainScreen = (props) => {
   if (cityParam && cityParam !== city.name) {
     changeCity(cityParam);
   }
+
+  console.log(`offerActive`, offerActive);
 
   switch (sortType) {
     case SortType.PRICE_LOW_TO_HIGH:
@@ -88,7 +92,7 @@ const MainScreen = (props) => {
                 </span>
                 <SortList isOpenSortList={isOpenSortList} sortType={sortType} toggleSortList={toggleSortList} changeSortType={changeSortType} />
               </form>
-              <CitiesPlacesList offers={offers}/>
+              <CitiesPlacesList offers={offers} changeOfferActive={changeOfferActive}/>
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
@@ -130,6 +134,7 @@ const mapStateToProps = (state) => ({
   offers: state.offers.filter((offer) => offer.city.name === state.city.name),
   isOpenSortList: state.isOpenSortList,
   sortType: state.sortType,
+  offerActive: state.offerActive,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -144,6 +149,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   changeSortType(sortType) {
     dispatch(ActionCreator.changeSortType(sortType));
+  },
+  changeOfferActive(activeOffer) {
+    dispatch(ActionCreator.changeOfferActive(activeOffer));
   }
 });
 
