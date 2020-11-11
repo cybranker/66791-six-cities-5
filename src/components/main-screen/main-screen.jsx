@@ -5,16 +5,15 @@ import {connect} from "react-redux";
 import {ActionCreator} from "../../store/action";
 import CitiesPlacesList from "../cities-places-list/cities-places-list";
 import Map from "../map/map";
-import {upperFirst} from "../../utils";
+import {upperFirst, sortPriceLowToHigh, sortPriceHighToLow, sortRated} from "../../utils";
 import CitiesList from "../cities-list/cities-list";
 import SortList from "../sort-list/sort-list";
-import {SortTypeName} from "../../const";
+import {SortType, SortTypeName} from "../../const";
 
 import mainScreenProp from "./main-screen.prop";
 
 const MainScreen = (props) => {
   const {
-    offers,
     city,
     isOpenSortList,
     sortType,
@@ -24,9 +23,22 @@ const MainScreen = (props) => {
     changeSortType
   } = props;
   const cityParam = upperFirst(props.match.params.city);
+  let {offers} = props;
 
   if (cityParam && cityParam !== city.name) {
     changeCity(cityParam);
+  }
+
+  switch (sortType) {
+    case SortType.PRICE_LOW_TO_HIGH:
+      offers = offers.slice().sort(sortPriceLowToHigh);
+      break;
+    case SortType.PRICE_HIGH_TO_LOW:
+      offers = offers.slice().sort(sortPriceHighToLow);
+      break;
+    case SortType.TOP_RATED:
+      offers = offers.slice().sort(sortRated);
+      break;
   }
 
   return (
@@ -107,13 +119,17 @@ MainScreen.propTypes = {
   offers: mainScreenProp,
   changeCity: PropTypes.func.isRequired,
   getListOffers: PropTypes.func.isRequired,
+  isOpenSortList: PropTypes.bool.isRequired,
+  sortType: PropTypes.string.isRequired,
+  toggleSortList: PropTypes.func.isRequired,
+  changeSortType: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
   city: state.city,
   offers: state.offers.filter((offer) => offer.city.name === state.city.name),
   isOpenSortList: state.isOpenSortList,
-  sortType: state.sortType
+  sortType: state.sortType,
 });
 
 const mapDispatchToProps = (dispatch) => ({

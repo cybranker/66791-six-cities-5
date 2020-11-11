@@ -21,4 +21,11 @@ const SortList = ({isOpenSortList, sortType, toggleSortList, changeSortType}) =>
   );
 };
 
+SortList.propTypes = {
+  isOpenSortList: PropTypes.bool.isRequired,
+  sortType: PropTypes.string.isRequired,
+  toggleSortList: PropTypes.func.isRequired,
+  changeSortType: PropTypes.func.isRequired
+};
+
 export default SortList;
