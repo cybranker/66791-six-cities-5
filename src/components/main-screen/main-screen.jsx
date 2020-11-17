@@ -100,7 +100,7 @@ const MainScreen = (props) => {
               </section>
             </div>
           </div>)
-          || <EmptyOffers/>}
+          || <EmptyOffers city={city}/>}
         </div>
       </main>
     </div>
