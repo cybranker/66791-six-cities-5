@@ -8,6 +8,7 @@ import Map from "../map/map";
 import {upperFirst, sortPriceLowToHigh, sortPriceHighToLow, sortRated} from "../../utils";
 import CitiesList from "../cities-list/cities-list";
 import SortList from "../sort-list/sort-list";
+import EmptyOffers from "../empty-offers/empty-offers";
 import {SortType, SortTypeName} from "../../const";
 
 import mainScreenProp from "./main-screen.prop";
@@ -69,7 +70,7 @@ const MainScreen = (props) => {
         </div>
       </header>
 
-      <main className="page__main page__main--index">
+      <main className={`page__main page__main--index ${offers.length === 0 && `page__main--index-empty`}`}>
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
@@ -77,7 +78,7 @@ const MainScreen = (props) => {
           </section>
         </div>
         <div className="cities">
-          <div className="cities__places-container container">
+          {(offers.length > 0 && <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">{offers.length} places to stay in {upperFirst(city.name)}</b>
@@ -98,7 +99,8 @@ const MainScreen = (props) => {
                 <Map offers={offers} currentCity={city} offerActive={offerActive}/>
               </section>
             </div>
-          </div>
+          </div>)
+          || <EmptyOffers/>}
         </div>
       </main>
     </div>

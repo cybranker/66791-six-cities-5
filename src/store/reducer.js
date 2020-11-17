@@ -1,10 +1,11 @@
 import {extend} from "../utils";
 import {ActionType} from "./action";
 import offers from "../mocks/offers";
+import cities from "../mocks/cities";
 import {SortType} from "../const";
 
 const initialState = {
-  city: offers[0].city,
+  city: cities[0],
   offers,
   isOpenSortList: false,
   sortType: SortType.DEFAULT,
