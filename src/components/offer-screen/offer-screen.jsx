@@ -7,6 +7,9 @@ import ReviewForm from "../review-form/review-form";
 import Map from "../map/map";
 import NearPlacesList from "../near-places-list/near-places-list";
 
+import {getOffers} from "../../store/reducers/offers-data/selectors";
+import {getCity} from "../../store/reducers/offers-process/selectors";
+
 import mainScreenProp from "../main-screen/main-screen.prop";
 
 class OfferScreen extends PureComponent {
@@ -198,8 +201,8 @@ OfferScreen.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  city: state.city,
-  offers: state.offers.filter((offer) => offer.city.name === state.city.name)
+  city: getCity(state),
+  offers: getOffers(state)
 });
 
 export {OfferScreen};
