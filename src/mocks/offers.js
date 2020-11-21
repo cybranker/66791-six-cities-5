@@ -38,6 +38,7 @@ export default [{
     `Cabel TV`
   ],
   manager: {
+    id: 3,
     picture: `https://avatarfiles.alphacoders.com/254/254847.jpg`,
     name: `Valera`,
     isSuper: true
