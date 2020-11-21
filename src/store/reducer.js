@@ -1,10 +1,11 @@
 import {extend} from "../utils";
 import {ActionType} from "./action";
 import offers from "../mocks/offers";
+import cities from "../mocks/cities";
 import {SortType} from "../const";
 
 const initialState = {
-  city: offers[0].city,
+  city: cities[0],
   offers,
   isOpenSortList: false,
   sortType: SortType.DEFAULT,
@@ -15,7 +16,7 @@ export const reducer = (state = initialState, action) => {
   switch (action.type) {
     case ActionType.CHANGE_CITY:
       return extend(state, {
-        city: typeof action.payload === `string` ? initialState.offers.find((it) => it.city.name === action.payload).city : action.payload
+        city: typeof action.payload === `string` ? cities.find((it) => it.name === action.payload) : action.payload
       });
     case ActionType.GET_LIST_OFFERS:
       return extend(state, {
