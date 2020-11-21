@@ -11,7 +11,7 @@ import SortList from "../sort-list/sort-list";
 import EmptyOffers from "../empty-offers/empty-offers";
 import {SortType, SortTypeName} from "../../const";
 
-import {getOffers} from "../../store/reducers/offers-data/selectors";
+import {getOffersCurrentCity} from "../../store/reducers/offers-data/selectors";
 import {getCity, getOfferActive} from "../../store/reducers/offers-process/selectors";
 import {getIsOpenSortList, getSortType} from "../../store/reducers/offers-sorting/selectors";
 
@@ -138,7 +138,7 @@ MainScreen.propTypes = {
 
 const mapStateToProps = (state) => ({
   city: getCity(state),
-  offers: getOffers(state),
+  offers: getOffersCurrentCity(state),
   isOpenSortList: getIsOpenSortList(state),
   sortType: getSortType(state),
   offerActive: getOfferActive(state),
