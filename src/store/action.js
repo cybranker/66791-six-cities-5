@@ -3,7 +3,8 @@ export const ActionType = {
   GET_LIST_OFFERS: `GET_LIST_OFFERS`,
   TOGGLE_SORT_LIST: `TOGGLE_SORT_LIST`,
   CHANGE_SORT_TYPE: `CHANGE_SORT_TYPE`,
-  CHANGE_OFFER_ACTIVE: `CHANGE_OFFER_ACTIVE`
+  CHANGE_OFFER_ACTIVE: `CHANGE_OFFER_ACTIVE`,
+  LOAD_OFFERS: `LOAD_OFFERS`
 };
 
 export const changeCity = (city) => ({
@@ -27,4 +28,9 @@ export const changeSortType = (sortType) => ({
 export const changeOfferActive = (activeOffer) => ({
   type: ActionType.CHANGE_OFFER_ACTIVE,
   payload: activeOffer
+});
+
+export const loadOffers = (offers) => ({
+  type: ActionType.LOAD_OFFERS,
+  payload: offers
 });
