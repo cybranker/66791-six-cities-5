@@ -6,23 +6,25 @@ export const ActionType = {
   CHANGE_OFFER_ACTIVE: `CHANGE_OFFER_ACTIVE`
 };
 
-export const ActionCreator = {
-  changeCity: (city) => ({
-    type: ActionType.CHANGE_CITY,
-    payload: city
-  }),
-  getListOffers: () => ({
-    type: ActionType.GET_LIST_OFFERS
-  }),
-  toggleSortList: () => ({
-    type: ActionType.TOGGLE_SORT_LIST
-  }),
-  changeSortType: (sortType) => ({
-    type: ActionType.CHANGE_SORT_TYPE,
-    payload: sortType
-  }),
-  changeOfferActive: (activeOffer) => ({
-    type: ActionType.CHANGE_OFFER_ACTIVE,
-    payload: activeOffer
-  })
-};
+export const changeCity = (city) => ({
+  type: ActionType.CHANGE_CITY,
+  payload: city
+});
+
+export const getListOffers = () => ({
+  type: ActionType.GET_LIST_OFFERS
+});
+
+export const toggleSortList = () => ({
+  type: ActionType.TOGGLE_SORT_LIST
+});
+
+export const changeSortType = (sortType) => ({
+  type: ActionType.CHANGE_SORT_TYPE,
+  payload: sortType
+});
+
+export const changeOfferActive = (activeOffer) => ({
+  type: ActionType.CHANGE_OFFER_ACTIVE,
+  payload: activeOffer
+});

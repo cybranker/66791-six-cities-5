@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
 import {connect} from "react-redux";
-import {ActionCreator} from "../../store/action";
+import {changeCity, getListOffers, toggleSortList, changeSortType, changeOfferActive} from "../../store/action";
 import CitiesPlacesList from "../cities-places-list/cities-places-list";
 import Map from "../map/map";
 import {upperFirst, sortPriceLowToHigh, sortPriceHighToLow, sortRated} from "../../utils";
@@ -19,18 +19,18 @@ const MainScreen = (props) => {
     city,
     isOpenSortList,
     sortType,
-    changeCity,
-    getListOffers,
-    toggleSortList,
-    changeSortType,
+    changeCityAction,
+    getListOffersAction,
+    toggleSortListAction,
+    changeSortTypeAction,
     offerActive,
-    changeOfferActive
+    changeOfferActiveAction
   } = props;
   const cityParam = upperFirst(props.match.params.city);
   let {offers} = props;
 
   if (cityParam && cityParam !== city.name) {
-    changeCity(cityParam);
+    changeCityAction(cityParam);
   }
 
   switch (sortType) {
@@ -74,7 +74,7 @@ const MainScreen = (props) => {
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
-            <CitiesList currentCity={city} changeCity={changeCity} getListOffers={getListOffers}/>
+            <CitiesList currentCity={city} changeCity={changeCityAction} getListOffers={getListOffersAction}/>
           </section>
         </div>
         <div className="cities">
@@ -84,15 +84,15 @@ const MainScreen = (props) => {
               <b className="places__found">{offers.length} places to stay in {upperFirst(city.name)}</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
-                <span className="places__sorting-type" tabIndex="0" onClick={toggleSortList}>
+                <span className="places__sorting-type" tabIndex="0" onClick={toggleSortListAction}>
                   {SortTypeName[sortType]}
                   <svg className="places__sorting-arrow" width="7" height="4">
                     <use xlinkHref="#icon-arrow-select"></use>
                   </svg>
                 </span>
-                <SortList isOpenSortList={isOpenSortList} sortType={sortType} toggleSortList={toggleSortList} changeSortType={changeSortType} />
+                <SortList isOpenSortList={isOpenSortList} sortType={sortType} toggleSortList={toggleSortListAction} changeSortType={changeSortTypeAction} />
               </form>
-              <CitiesPlacesList offers={offers} changeOfferActive={changeOfferActive}/>
+              <CitiesPlacesList offers={offers} changeOfferActive={changeOfferActiveAction}/>
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
@@ -122,14 +122,14 @@ MainScreen.propTypes = {
     name: PropTypes.string.isRequired
   }).isRequired,
   offers: mainScreenProp,
-  changeCity: PropTypes.func.isRequired,
-  getListOffers: PropTypes.func.isRequired,
+  changeCityAction: PropTypes.func.isRequired,
+  getListOffersAction: PropTypes.func.isRequired,
   isOpenSortList: PropTypes.bool.isRequired,
   sortType: PropTypes.string.isRequired,
-  toggleSortList: PropTypes.func.isRequired,
-  changeSortType: PropTypes.func.isRequired,
+  toggleSortListAction: PropTypes.func.isRequired,
+  changeSortTypeAction: PropTypes.func.isRequired,
   offerActive: PropTypes.oneOfType([PropTypes.shape(), placeCardProp]).isRequired,
-  changeOfferActive: PropTypes.func.isRequired
+  changeOfferActiveAction: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -141,20 +141,20 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  changeCity(city) {
-    dispatch(ActionCreator.changeCity(city));
+  changeCityAction(city) {
+    dispatch(changeCity(city));
   },
-  getListOffers() {
-    dispatch(ActionCreator.getListOffers());
+  getListOffersAction() {
+    dispatch(getListOffers());
   },
-  toggleSortList() {
-    dispatch(ActionCreator.toggleSortList());
+  toggleSortListAction() {
+    dispatch(toggleSortList());
   },
-  changeSortType(sortType) {
-    dispatch(ActionCreator.changeSortType(sortType));
+  changeSortTypeAction(sortType) {
+    dispatch(changeSortType(sortType));
   },
-  changeOfferActive(activeOffer) {
-    dispatch(ActionCreator.changeOfferActive(activeOffer));
+  changeOfferActiveAction(activeOffer) {
+    dispatch(changeOfferActive(activeOffer));
   }
 });
 
