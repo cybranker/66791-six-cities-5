@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
 import {connect} from "react-redux";
-import {changeCity, getListOffers, toggleSortList, changeSortType, changeOfferActive} from "../../store/action";
+import {changeCity, toggleSortList, changeSortType, changeOfferActive} from "../../store/action";
 import CitiesPlacesList from "../cities-places-list/cities-places-list";
 import Map from "../map/map";
 import {upperFirst, sortPriceLowToHigh, sortPriceHighToLow, sortRated} from "../../utils";
@@ -24,7 +24,6 @@ const MainScreen = (props) => {
     isOpenSortList,
     sortType,
     changeCityAction,
-    getListOffersAction,
     toggleSortListAction,
     changeSortTypeAction,
     offerActive,
@@ -78,7 +77,7 @@ const MainScreen = (props) => {
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
-            <CitiesList currentCity={city} changeCity={changeCityAction} getListOffers={getListOffersAction}/>
+            <CitiesList currentCity={city} changeCity={changeCityAction}/>
           </section>
         </div>
         <div className="cities">
@@ -127,7 +126,6 @@ MainScreen.propTypes = {
   }).isRequired,
   offers: mainScreenProp,
   changeCityAction: PropTypes.func.isRequired,
-  getListOffersAction: PropTypes.func.isRequired,
   isOpenSortList: PropTypes.bool.isRequired,
   sortType: PropTypes.string.isRequired,
   toggleSortListAction: PropTypes.func.isRequired,
@@ -147,9 +145,6 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   changeCityAction(city) {
     dispatch(changeCity(city));
-  },
-  getListOffersAction() {
-    dispatch(getListOffers());
   },
   toggleSortListAction() {
     dispatch(toggleSortList());

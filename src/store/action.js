@@ -1,6 +1,5 @@
 export const ActionType = {
   CHANGE_CITY: `CHANGE_CITY`,
-  GET_LIST_OFFERS: `GET_LIST_OFFERS`,
   TOGGLE_SORT_LIST: `TOGGLE_SORT_LIST`,
   CHANGE_SORT_TYPE: `CHANGE_SORT_TYPE`,
   CHANGE_OFFER_ACTIVE: `CHANGE_OFFER_ACTIVE`,
@@ -10,10 +9,6 @@ export const ActionType = {
 export const changeCity = (city) => ({
   type: ActionType.CHANGE_CITY,
   payload: city
-});
-
-export const getListOffers = () => ({
-  type: ActionType.GET_LIST_OFFERS
 });
 
 export const toggleSortList = () => ({
