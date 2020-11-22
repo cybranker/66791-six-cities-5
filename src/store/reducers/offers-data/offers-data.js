@@ -1,8 +1,10 @@
 import {extend} from "../../../utils";
 import {ActionType} from "../../action";
+import cities from "../../../mocks/cities";
 
 const initialState = {
-  offers: []
+  offers: [],
+  cities
 };
 
 export const offersData = (state = initialState, action) => {

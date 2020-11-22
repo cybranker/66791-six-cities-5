@@ -3,6 +3,8 @@ import {getCity} from "../offers-process/selectors";
 
 export const getOffers = (state) => state.DATA.offers;
 
+export const getCities = (state) => state.DATA.cities;
+
 export const getOffersCurrentCity = createSelector(
     getOffers,
     getCity,

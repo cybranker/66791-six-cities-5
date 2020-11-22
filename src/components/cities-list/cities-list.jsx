@@ -1,9 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {connect} from "react-redux";
 import CitiesItem from "../cities-item/cities-item";
-import cities from "../../mocks/cities";
 
-const CitiesList = ({currentCity, changeCity}) => {
+import {getCities} from "../../store/reducers/offers-data/selectors";
+
+const CitiesList = ({currentCity, changeCity, cities}) => {
   return (
     <ul className="locations__list tabs__list">
       {cities.map((city, i) => (
@@ -22,7 +24,22 @@ CitiesList.propTypes = {
     }).isRequired,
     name: PropTypes.string.isRequired
   }).isRequired,
-  changeCity: PropTypes.func.isRequired
+  changeCity: PropTypes.func.isRequired,
+  cities: PropTypes.arrayOf(
+      PropTypes.shape({
+        location: PropTypes.shape({
+          lat: PropTypes.number.isRequired,
+          lon: PropTypes.number.isRequired,
+          zoom: PropTypes.number.isRequired
+        }).isRequired,
+        name: PropTypes.string.isRequired
+      }).isRequired
+  ).isRequired
 };
 
-export default CitiesList;
+const mapStateToProps = (state) => ({
+  cities: getCities(state)
+});
+
+export {CitiesList};
+export default connect(mapStateToProps)(CitiesList);

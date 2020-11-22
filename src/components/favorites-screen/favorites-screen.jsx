@@ -1,5 +1,8 @@
 import React from "react";
 import {Link} from "react-router-dom";
+import {connect} from "react-redux";
+
+import {getOffers} from "../../store/reducers/offers-data/selectors";
 
 import mainScreenProp from "../main-screen/main-screen.prop";
 
@@ -97,4 +100,9 @@ FavoritesScreen.propTypes = {
   offers: mainScreenProp
 };
 
-export default FavoritesScreen;
+const mapStateToProps = (state) => ({
+  offers: getOffers(state)
+});
+
+export {FavoritesScreen};
+export default connect(mapStateToProps)(FavoritesScreen);
