@@ -1,4 +1,4 @@
-import {loadOffers, requireAuthorization} from "./action";
+import {loadOffers, requireAuthorization, redirectToRoute} from "./action";
 import {AuthorizationStatus} from "../const";
 import {adaptOffersToClient} from "../adapt";
 
@@ -18,4 +18,5 @@ export const checkAuth = () => (dispatch, _getState, api) => (
 export const login = ({login: email, password}) => (dispatch, _getState, api) => (
   api.post(`/login`, {email, password})
     .then(() => dispatch(requireAuthorization(AuthorizationStatus.AUTH)))
+    .then(() => dispatch(redirectToRoute(`/`)))
 );
