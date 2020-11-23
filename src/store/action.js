@@ -3,7 +3,8 @@ export const ActionType = {
   TOGGLE_SORT_LIST: `TOGGLE_SORT_LIST`,
   CHANGE_SORT_TYPE: `CHANGE_SORT_TYPE`,
   CHANGE_OFFER_ACTIVE: `CHANGE_OFFER_ACTIVE`,
-  LOAD_OFFERS: `LOAD_OFFERS`
+  LOAD_OFFERS: `LOAD_OFFERS`,
+  REQUIRED_AUTHORIZATION: `REQUIRED_AUTHORIZATION`
 };
 
 export const changeCity = (city) => ({
@@ -28,4 +29,9 @@ export const changeOfferActive = (activeOffer) => ({
 export const loadOffers = (offers) => ({
   type: ActionType.LOAD_OFFERS,
   payload: offers
+});
+
+export const requireAuthorization = (status) => ({
+  type: ActionType.REQUIRED_AUTHORIZATION,
+  payload: status,
 });
