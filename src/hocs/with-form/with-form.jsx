@@ -19,6 +19,7 @@ const withForm = (Component) => {
       return (
         <Component
           {...this.props}
+          stateForm={this.state}
           onFieldChange={this.handleFieldChange}
         />
       );
