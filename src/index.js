@@ -8,9 +8,13 @@ import {createAPI} from "./services/api";
 import App from "./components/app/app";
 import reviews from "./mocks/reviews";
 import rootReducer from "./store/reducers/root-reducer";
-import {fetchOfferList} from "./store/reducers/api-actions";
+import {requireAuthorization} from "./store/action";
+import {fetchOfferList, checkAuth} from "./store/api-actions";
+import {AuthorizationStatus} from "./const";
 
-const api = createAPI();
+const api = createAPI(
+    () => store.dispatch(requireAuthorization(AuthorizationStatus.NO_AUTH))
+);
 
 const store = createStore(
     rootReducer,
@@ -20,6 +24,7 @@ const store = createStore(
 );
 
 store.dispatch(fetchOfferList());
+store.dispatch(checkAuth());
 
 ReactDOM.render(
     <Provider store={store}>
