@@ -5,6 +5,7 @@ import MainScreen from "../main-screen/main-screen";
 import OfferScreen from "../offer-screen/offer-screen";
 import FavoritesScreen from "../favorites-screen/favorites-screen";
 import AuthScreen from "../auth-screen/auth-screen";
+import PrivateRoute from "../private-route/private-route";
 
 const App = (props) => {
   const {reviews} = props;
@@ -12,9 +13,15 @@ const App = (props) => {
   return (
     <BrowserRouter>
       <Switch>
-        <Route exact path="/favorites">
-          <FavoritesScreen/>
-        </Route>
+        <PrivateRoute
+          exact
+          path={`/favorites`}
+          render={() => {
+            return (
+              <FavoritesScreen/>
+            );
+          }}
+        />
         <Route exact path="/offer/:id"
           render={(params) => <OfferScreen reviews={reviews} {...params}/>}
         />
