@@ -11,10 +11,10 @@ export default PropTypes.shape({
     }).isRequired,
     name: PropTypes.string.isRequired
   }).isRequired,
-  pictures: PropTypes.arrayOf(PropTypes.shape({
-    src: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-  })).isRequired,
+  pictures: PropTypes.arrayOf(
+      PropTypes.string.isRequired
+  ).isRequired,
+  prevPic: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   description: PropTypes.array.isRequired,
   isPremium: PropTypes.bool.isRequired,
@@ -37,6 +37,7 @@ export default PropTypes.shape({
   isFavorite: PropTypes.bool.isRequired,
   coordinates: PropTypes.shape({
     lon: PropTypes.number.isRequired,
-    lat: PropTypes.number.isRequired
+    lat: PropTypes.number.isRequired,
+    zoom: PropTypes.number.isRequired
   }).isRequired
 }).isRequired;

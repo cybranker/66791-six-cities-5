@@ -9,12 +9,12 @@ const PlaceCard = (props) => {
   const {offer, placeType, changeOfferActive} = props;
   const {
     id,
-    pictures,
     isPremium,
     price,
     title,
     type,
     rating,
+    prevPic,
     isFavorite
   } = offer;
 
@@ -29,7 +29,7 @@ const PlaceCard = (props) => {
       </div>}
       <div className={`${(placeType === PlaceType.CITIES) ? `cities__image-wrapper` : `near-places__image-wrapper`} place-card__image-wrapper`}>
         <Link to={`/offer/${id}`}>
-          <img className="place-card__image" src={pictures[0].src} width="260" height="200" alt={pictures[0].description}/>
+          <img className="place-card__image" src={prevPic} width="260" height="200" alt=""/>
         </Link>
       </div>
       <div className="place-card__info">
