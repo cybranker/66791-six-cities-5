@@ -6,7 +6,8 @@ export const ActionType = {
   LOAD_OFFERS: `LOAD_OFFERS`,
   REQUIRED_AUTHORIZATION: `REQUIRED_AUTHORIZATION`,
   REDIRECT_TO_ROUTE: `REDIRECT_TO_ROUTE`,
-  LOAD_USER: `LOAD_USER`
+  LOAD_USER: `LOAD_USER`,
+  LOAD_FAVORITE_OFFERS: `LOAD_FAVORITE_OFFERS`
 };
 
 export const changeCity = (city) => ({
@@ -30,6 +31,11 @@ export const changeOfferActive = (activeOffer) => ({
 
 export const loadOffers = (offers) => ({
   type: ActionType.LOAD_OFFERS,
+  payload: offers
+});
+
+export const loadFavoriteOffers = (offers) => ({
+  type: ActionType.LOAD_FAVORITE_OFFERS,
   payload: offers
 });
 

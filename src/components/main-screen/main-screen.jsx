@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
 import {connect} from "react-redux";
 import {changeCity, toggleSortList, changeSortType, changeOfferActive} from "../../store/action";
+import {fetchFavoriteOfferList} from "../../store/api-actions";
 import CitiesPlacesList from "../cities-places-list/cities-places-list";
 import Map from "../map/map";
 import {upperFirst, sortPriceLowToHigh, sortPriceHighToLow, sortRated} from "../../utils";
@@ -30,7 +31,8 @@ const MainScreen = (props) => {
     offerActive,
     changeOfferActiveAction,
     authorizationStatus,
-    user
+    user,
+    onClickFavorite
   } = props;
   const cityParam = upperFirst(props.match.params.city);
   let {offers} = props;
@@ -64,7 +66,9 @@ const MainScreen = (props) => {
             <nav className="header__nav">
               <ul className="header__nav-list">
                 <li className="header__nav-item user">
-                  {(authorizationStatus === AuthorizationStatus.AUTH && <Link to={AppRoute.FAVORITES} className="header__nav-link header__nav-link--profile">
+                  {(authorizationStatus === AuthorizationStatus.AUTH && <Link to={AppRoute.FAVORITES} className="header__nav-link header__nav-link--profile" onClick={() => {
+                    onClickFavorite();
+                  }}>
                     <div className="header__avatar-wrapper user__avatar-wrapper" style={{backgroundImage: `url(${user[`avatar_url`]})`, borderRadius: `50%`}}>
                     </div>
                     <span className="header__user-name user__name">{user.email}</span>
@@ -146,7 +150,8 @@ MainScreen.propTypes = {
     name: PropTypes.string,
     [`avatar_url`]: PropTypes.string,
     [`is_pro`]: PropTypes.bool
-  }).isRequired
+  }).isRequired,
+  onClickFavorite: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -171,6 +176,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   changeOfferActiveAction(activeOffer) {
     dispatch(changeOfferActive(activeOffer));
+  },
+  onClickFavorite() {
+    dispatch(fetchFavoriteOfferList());
   }
 });
 
