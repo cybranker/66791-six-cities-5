@@ -1,4 +1,4 @@
-import {loadOffers, requireAuthorization, redirectToRoute} from "./action";
+import {loadUser, loadOffers, requireAuthorization, redirectToRoute} from "./action";
 import {AuthorizationStatus, AppRoute, APIRoute} from "../const";
 import {adaptOffersToClient} from "../adapt";
 
@@ -9,6 +9,7 @@ export const fetchOfferList = () => (dispatch, _getState, api) => (
 
 export const checkAuth = () => (dispatch, _getState, api) => (
   api.get(APIRoute.LOGIN)
+    .then(({data}) => dispatch(loadUser(data)))
     .then(() => dispatch(requireAuthorization(AuthorizationStatus.AUTH)))
     .catch((err) => {
       throw err;

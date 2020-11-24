@@ -14,7 +14,7 @@ import {SortType, SortTypeName, AuthorizationStatus, AppRoute} from "../../const
 import {getOffersCurrentCity} from "../../store/reducers/offers-data/selectors";
 import {getCity, getOfferActive} from "../../store/reducers/offers-process/selectors";
 import {getIsOpenSortList, getSortType} from "../../store/reducers/offers-sorting/selectors";
-import {getAuthorizationStatus} from "../../store/reducers/user/selectors";
+import {getAuthorizationStatus, getUser} from "../../store/reducers/user/selectors";
 
 import mainScreenProp from "./main-screen.prop";
 import placeCardProp from "../place-card/place-card.prop";
@@ -29,7 +29,8 @@ const MainScreen = (props) => {
     changeSortTypeAction,
     offerActive,
     changeOfferActiveAction,
-    authorizationStatus
+    authorizationStatus,
+    user
   } = props;
   const cityParam = upperFirst(props.match.params.city);
   let {offers} = props;
@@ -64,9 +65,9 @@ const MainScreen = (props) => {
               <ul className="header__nav-list">
                 <li className="header__nav-item user">
                   {(authorizationStatus === AuthorizationStatus.AUTH && <Link to={AppRoute.FAVORITES} className="header__nav-link header__nav-link--profile">
-                    <div className="header__avatar-wrapper user__avatar-wrapper">
+                    <div className="header__avatar-wrapper user__avatar-wrapper" style={{backgroundImage: `url(${user[`avatar_url`]})`, borderRadius: `50%`}}>
                     </div>
-                    <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
+                    <span className="header__user-name user__name">{user.email}</span>
                   </Link>) || <Link to={AppRoute.LOGIN} className="header__nav-link header__nav-link--profile">
                     <div className="header__avatar-wrapper user__avatar-wrapper">
                     </div>
@@ -138,7 +139,14 @@ MainScreen.propTypes = {
   changeSortTypeAction: PropTypes.func.isRequired,
   offerActive: PropTypes.oneOfType([PropTypes.shape(), placeCardProp]).isRequired,
   changeOfferActiveAction: PropTypes.func.isRequired,
-  authorizationStatus: PropTypes.string.isRequired
+  authorizationStatus: PropTypes.string.isRequired,
+  user: PropTypes.shape({
+    id: PropTypes.number,
+    email: PropTypes.string,
+    name: PropTypes.string,
+    [`avatar_url`]: PropTypes.string,
+    [`is_pro`]: PropTypes.bool
+  }).isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -147,7 +155,8 @@ const mapStateToProps = (state) => ({
   isOpenSortList: getIsOpenSortList(state),
   sortType: getSortType(state),
   offerActive: getOfferActive(state),
-  authorizationStatus: getAuthorizationStatus(state)
+  authorizationStatus: getAuthorizationStatus(state),
+  user: getUser(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({
