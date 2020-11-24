@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
-import {PlaceType} from "../../const";
+import {PlaceType, AppRoute} from "../../const";
 
 import placeCardProp from "./place-card.prop";
 
@@ -28,7 +28,7 @@ const PlaceCard = (props) => {
         <span>Premium</span>
       </div>}
       <div className={`${(placeType === PlaceType.CITIES) ? `cities__image-wrapper` : `near-places__image-wrapper`} place-card__image-wrapper`}>
-        <Link to={`/offer/${id}`}>
+        <Link to={`${AppRoute.OFFER}/${id}`}>
           <img className="place-card__image" src={prevPic} width="260" height="200" alt=""/>
         </Link>
       </div>
@@ -52,7 +52,7 @@ const PlaceCard = (props) => {
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={`/offer/${id}`}>{title}</Link>
+          <Link to={`${AppRoute.OFFER}/${id}`}>{title}</Link>
         </h2>
         <p className="place-card__type">{type.charAt(0).toUpperCase() + type.slice(1)}</p>
       </div>

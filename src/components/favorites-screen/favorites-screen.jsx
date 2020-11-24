@@ -1,6 +1,7 @@
 import React from "react";
 import {Link} from "react-router-dom";
 import {connect} from "react-redux";
+import {AppRoute} from "../../const";
 
 import {getOffers} from "../../store/reducers/offers-data/selectors";
 
@@ -15,14 +16,14 @@ const FavoritesScreen = ({offers}) => {
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <Link to="/" className="header__logo-link">
+              <Link to={AppRoute.ROOT} className="header__logo-link">
                 <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41"/>
               </Link>
             </div>
             <nav className="header__nav">
               <ul className="header__nav-list">
                 <li className="header__nav-item user">
-                  <Link to="/favorites" className="header__nav-link header__nav-link--profile">
+                  <Link to={AppRoute.FAVORITES} className="header__nav-link header__nav-link--profile">
                     <div className="header__avatar-wrapper user__avatar-wrapper">
                     </div>
                     <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
@@ -51,7 +52,7 @@ const FavoritesScreen = ({offers}) => {
                   {favoriteOffers.map(({id, pictures, title, type, rating, price, isFavorite}, i) => (
                     <article key={`favorite-offer-${i}`} className="favorites__card place-card">
                       <div className="favorites__image-wrapper place-card__image-wrapper">
-                        <Link to={`/offer/${id}`}>
+                        <Link to={`${AppRoute.OFFER}/${id}`}>
                           <img className="place-card__image" src={pictures[0].src} width="150" height="110" alt="Place image"/>
                         </Link>
                       </div>
@@ -75,7 +76,7 @@ const FavoritesScreen = ({offers}) => {
                           </div>
                         </div>
                         <h2 className="place-card__name">
-                          <Link to={`/offer/${id}`}>{title}</Link>
+                          <Link to={`${AppRoute.OFFER}/${id}`}>{title}</Link>
                         </h2>
                         <p className="place-card__type">{type.charAt(0).toUpperCase() + type.slice(1)}</p>
                       </div>
@@ -88,7 +89,7 @@ const FavoritesScreen = ({offers}) => {
         </div>
       </main>
       <footer className="footer container">
-        <Link to="/" className="footer__logo-link">
+        <Link to={AppRoute.ROOT} className="footer__logo-link">
           <img className="footer__logo" src="img/logo.svg" alt="6 cities logo" width="64" height="33"/>
         </Link>
       </footer>
