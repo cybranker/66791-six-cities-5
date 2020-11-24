@@ -13,9 +13,10 @@ import mainScreenProp from "../main-screen/main-screen.prop";
 
 const FavoritesScreen = ({offers, authorizationStatus, user, onClickFavorite}) => {
   const favoriteOffers = offers.filter((offer) => offer.isFavorite);
+  const isFavoriteOffers = offers.length > 0;
 
   return (
-    <div className="page">
+    <div className={`page ${!isFavoriteOffers && `page--favorites-empty`}`}>
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
@@ -45,9 +46,9 @@ const FavoritesScreen = ({offers, authorizationStatus, user, onClickFavorite}) =
         </div>
       </header>
 
-      <main className="page__main page__main--favorites">
+      <main className={`page__main page__main--favorites ${!isFavoriteOffers && `page__main--favorites-empty`}`}>
         <div className="page__favorites-container container">
-          {(offers.length > 0 && <section className="favorites">
+          {(isFavoriteOffers && <section className="favorites">
             <h1 className="favorites__title">Saved listing</h1>
             <ul className="favorites__list">
               <li className="favorites__locations-items">
