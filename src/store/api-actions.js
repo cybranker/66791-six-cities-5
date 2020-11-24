@@ -10,6 +10,9 @@ export const fetchOfferList = () => (dispatch, _getState, api) => (
 export const fetchFavoriteOfferList = () => (dispatch, _getState, api) => (
   api.get(APIRoute.FAVORITE)
     .then(({data}) => dispatch(loadFavoriteOffers(data)))
+    .catch((err) => {
+      throw err;
+    })
 );
 
 export const checkAuth = () => (dispatch, _getState, api) => (

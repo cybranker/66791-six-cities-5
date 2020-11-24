@@ -1,13 +1,17 @@
 import React from "react";
+import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
 import {connect} from "react-redux";
-import {AppRoute} from "../../const";
+import {fetchFavoriteOfferList} from "../../store/api-actions";
+import {AppRoute, AuthorizationStatus} from "../../const";
+import EmptyFavorites from "../empty-favorites/empty-favorites";
 
-import {getOffers} from "../../store/reducers/offers-data/selectors";
+import {getFavoriteOffers} from "../../store/reducers/offers-data/selectors";
+import {getAuthorizationStatus, getUser} from "../../store/reducers/user/selectors";
 
 import mainScreenProp from "../main-screen/main-screen.prop";
 
-const FavoritesScreen = ({offers}) => {
+const FavoritesScreen = ({offers, authorizationStatus, user, onClickFavorite}) => {
   const favoriteOffers = offers.filter((offer) => offer.isFavorite);
 
   return (
@@ -23,11 +27,17 @@ const FavoritesScreen = ({offers}) => {
             <nav className="header__nav">
               <ul className="header__nav-list">
                 <li className="header__nav-item user">
-                  <Link to={AppRoute.FAVORITES} className="header__nav-link header__nav-link--profile">
+                  {(authorizationStatus === AuthorizationStatus.AUTH && <Link to={AppRoute.FAVORITES} className="header__nav-link header__nav-link--profile" onClick={() => {
+                    onClickFavorite();
+                  }}>
+                    <div className="header__avatar-wrapper user__avatar-wrapper" style={{backgroundImage: `url(${user[`avatar_url`]})`, borderRadius: `50%`}}>
+                    </div>
+                    <span className="header__user-name user__name">{user.email}</span>
+                  </Link>) || <Link to={AppRoute.LOGIN} className="header__nav-link header__nav-link--profile">
                     <div className="header__avatar-wrapper user__avatar-wrapper">
                     </div>
-                    <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                  </Link>
+                    <span className="header__login">Sign in</span>
+                  </Link>}
                 </li>
               </ul>
             </nav>
@@ -37,7 +47,7 @@ const FavoritesScreen = ({offers}) => {
 
       <main className="page__main page__main--favorites">
         <div className="page__favorites-container container">
-          <section className="favorites">
+          {(offers.length > 0 && <section className="favorites">
             <h1 className="favorites__title">Saved listing</h1>
             <ul className="favorites__list">
               <li className="favorites__locations-items">
@@ -85,7 +95,7 @@ const FavoritesScreen = ({offers}) => {
                 </div>
               </li>
             </ul>
-          </section>
+          </section>) || <EmptyFavorites/>}
         </div>
       </main>
       <footer className="footer container">
@@ -98,12 +108,29 @@ const FavoritesScreen = ({offers}) => {
 };
 
 FavoritesScreen.propTypes = {
-  offers: mainScreenProp
+  offers: mainScreenProp,
+  authorizationStatus: PropTypes.string.isRequired,
+  user: PropTypes.shape({
+    id: PropTypes.number,
+    email: PropTypes.string,
+    name: PropTypes.string,
+    [`avatar_url`]: PropTypes.string,
+    [`is_pro`]: PropTypes.bool
+  }).isRequired,
+  onClickFavorite: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
-  offers: getOffers(state)
+  offers: getFavoriteOffers(state),
+  authorizationStatus: getAuthorizationStatus(state),
+  user: getUser(state)
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onClickFavorite() {
+    dispatch(fetchFavoriteOfferList());
+  }
 });
 
 export {FavoritesScreen};
-export default connect(mapStateToProps)(FavoritesScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(FavoritesScreen);
