@@ -1,12 +1,19 @@
 import React from "react";
-import {Link} from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
 import {connect} from "react-redux";
 import AuthForm from "../auth-form/auth-form";
-import {AppRoute} from "../../const";
+import {AuthorizationStatus, AppRoute} from "../../const";
 import {getCity} from "../../store/reducers/offers-process/selectors";
 import PropTypes from "prop-types";
+import {getAuthorizationStatus} from "../../store/reducers/user/selectors";
 
-const AuthScreen = ({city}) => {
+const AuthScreen = ({city, authorizationStatus}) => {
+  if (authorizationStatus === AuthorizationStatus.AUTH) {
+    return (
+      <Redirect to={AppRoute.ROOT} />
+    );
+  }
+
   return (
     <div className="page page--gray page--login">
       <header className="header">
@@ -59,11 +66,13 @@ AuthScreen.propTypes = {
       zoom: PropTypes.number.isRequired
     }).isRequired,
     name: PropTypes.string.isRequired
-  }).isRequired
+  }).isRequired,
+  authorizationStatus: PropTypes.string.isRequired
 };
 
 const mapStateToProps = (state) => ({
-  city: getCity(state)
+  city: getCity(state),
+  authorizationStatus: getAuthorizationStatus(state)
 });
 
 export {AuthScreen};
