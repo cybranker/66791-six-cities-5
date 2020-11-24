@@ -30,9 +30,7 @@ store.dispatch(checkAuth());
 
 ReactDOM.render(
     <Provider store={store}>
-      <App
-        reviews={reviews}
-      />
+      <App reviews={reviews}/>
     </Provider>,
     document.querySelector(`#root`)
 );

@@ -1,9 +1,12 @@
 import React from "react";
 import {Link} from "react-router-dom";
+import {connect} from "react-redux";
 import AuthForm from "../auth-form/auth-form";
 import {AppRoute} from "../../const";
+import {getCity} from "../../store/reducers/offers-process/selectors";
+import PropTypes from "prop-types";
 
-const AuthScreen = () => {
+const AuthScreen = ({city}) => {
   return (
     <div className="page page--gray page--login">
       <header className="header">
@@ -37,9 +40,9 @@ const AuthScreen = () => {
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <a className="locations__item-link" href="#">
-                <span>Amsterdam</span>
-              </a>
+              <Link to={`${AppRoute.ROOT}${city.name.toLowerCase()}`} className="locations__item-link">
+                <span>{city.name}</span>
+              </Link>
             </div>
           </section>
         </div>
@@ -48,4 +51,20 @@ const AuthScreen = () => {
   );
 };
 
-export default AuthScreen;
+AuthScreen.propTypes = {
+  city: PropTypes.shape({
+    location: PropTypes.shape({
+      lat: PropTypes.number.isRequired,
+      lon: PropTypes.number.isRequired,
+      zoom: PropTypes.number.isRequired
+    }).isRequired,
+    name: PropTypes.string.isRequired
+  }).isRequired
+};
+
+const mapStateToProps = (state) => ({
+  city: getCity(state)
+});
+
+export {AuthScreen};
+export default connect(mapStateToProps)(AuthScreen);
