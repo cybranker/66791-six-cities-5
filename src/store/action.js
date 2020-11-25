@@ -7,7 +7,10 @@ export const ActionType = {
   REQUIRED_AUTHORIZATION: `REQUIRED_AUTHORIZATION`,
   REDIRECT_TO_ROUTE: `REDIRECT_TO_ROUTE`,
   LOAD_USER: `LOAD_USER`,
-  LOAD_FAVORITE_OFFERS: `LOAD_FAVORITE_OFFERS`
+  LOAD_FAVORITE_OFFERS: `LOAD_FAVORITE_OFFERS`,
+  LOAD_OFFER: `LOAD_OFFER`,
+  LOAD_COMMENTS: `LOAD_COMMENTS`,
+  LOAD_NEARBY: `LOAD_NEARBY`
 };
 
 export const changeCity = (city) => ({
@@ -32,6 +35,21 @@ export const changeOfferActive = (activeOffer) => ({
 export const loadOffers = (offers) => ({
   type: ActionType.LOAD_OFFERS,
   payload: offers
+});
+
+export const loadOffer = (offer) => ({
+  type: ActionType.LOAD_OFFER,
+  payload: offer
+});
+
+export const loadComments = (comments) => ({
+  type: ActionType.LOAD_COMMENTS,
+  payload: comments
+});
+
+export const loadNearby = (nearby) => ({
+  type: ActionType.LOAD_NEARBY,
+  payload: nearby
 });
 
 export const loadFavoriteOffers = (offers) => ({
