@@ -85,6 +85,11 @@ class Map extends PureComponent {
     });
   }
 
+  componentWillUnmount() {
+    this.map.remove();
+    this.map = null;
+  }
+
   render() {
     return (
       <div id="map" style={{height: 100 + `%`}}></div>

@@ -14,7 +14,7 @@ import {getCity, getOfferActive} from "../../store/reducers/offers-process/selec
 
 import placeCardProp from "../place-card/place-card.prop";
 import reviewsListProp from "../reviews-list/reviews-list.prop";
-import mainScreenProp from "../main-screen/main-screen.prop"
+import mainScreenProp from "../main-screen/main-screen.prop";
 import {changeOfferActive} from "../../store/action";
 
 class OfferScreen extends PureComponent {
