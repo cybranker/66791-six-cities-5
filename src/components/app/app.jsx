@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import {Switch, Route, Router as BrowserRouter} from "react-router-dom";
 import MainScreen from "../main-screen/main-screen";
 import OfferScreen from "../offer-screen/offer-screen";
@@ -9,9 +8,7 @@ import PrivateRoute from "../private-route/private-route";
 import browserHistory from "../../browser-history";
 import {AppRoute} from "../../const";
 
-const App = (props) => {
-  const {reviews} = props;
-
+const App = () => {
   return (
     <BrowserRouter history={browserHistory}>
       <Switch>
@@ -25,7 +22,7 @@ const App = (props) => {
           }}
         />
         <Route exact path={`${AppRoute.OFFER}/:id`}
-          render={(params) => <OfferScreen reviews={reviews} {...params}/>}
+          render={(params) => <OfferScreen {...params}/>}
         />
         <Route exact path={AppRoute.LOGIN}>
           <AuthScreen />
@@ -37,10 +34,5 @@ const App = (props) => {
     </BrowserRouter>
   );
 };
-
-App.propTypes = {
-  reviews: PropTypes.array.isRequired
-};
-
 
 export default App;

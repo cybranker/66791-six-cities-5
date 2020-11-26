@@ -32,7 +32,7 @@ export const AuthorizationStatus = {
 export const AppRoute = {
   LOGIN: `/login`,
   FAVORITES: `/favorites`,
-  OFFER: `/offer/`,
+  OFFER: `/offer`,
   ROOT: `/`
 };
 

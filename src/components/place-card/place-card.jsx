@@ -1,14 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {connect} from "react-redux";
 import {Link} from "react-router-dom";
-import {fetchOffer, fetchCommentList, fetchOffersNearby} from "../../store/api-actions";
 import {PlaceType, AppRoute} from "../../const";
 
 import placeCardProp from "./place-card.prop";
 
 const PlaceCard = (props) => {
-  const {offer, placeType, changeOfferActive, onClickOffer, onClickComments, onClickOffersNearby} = props;
+  const {offer, placeType, changeOfferActive} = props;
   const {
     id,
     isPremium,
@@ -54,12 +52,7 @@ const PlaceCard = (props) => {
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={`${AppRoute.OFFER}/${id}`} onClick={(evt) => {
-            evt.preventDefault();
-            onClickOffer(id);
-            onClickComments(id);
-            onClickOffersNearby(id);
-          }}>{title}</Link>
+          <Link to={`${AppRoute.OFFER}/${id}`}>{title}</Link>
         </h2>
         <p className="place-card__type">{type.charAt(0).toUpperCase() + type.slice(1)}</p>
       </div>
@@ -71,22 +64,6 @@ PlaceCard.propTypes = {
   placeType: PropTypes.string.isRequired,
   offer: placeCardProp,
   changeOfferActive: PropTypes.func.isRequired,
-  onClickOffer: PropTypes.func.isRequired,
-  onClickComments: PropTypes.func.isRequired,
-  onClickOffersNearby: PropTypes.func.isRequired
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  onClickOffer(id) {
-    dispatch(fetchOffer(id));
-  },
-  onClickComments(id) {
-    dispatch(fetchCommentList(id));
-  },
-  onClickOffersNearby(id) {
-    dispatch(fetchOffersNearby(id));
-  }
-});
-
-export {PlaceCard};
-export default connect(null, mapDispatchToProps)(PlaceCard);
+export default PlaceCard;
