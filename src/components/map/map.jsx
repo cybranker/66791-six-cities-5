@@ -70,6 +70,12 @@ class Map extends PureComponent {
     this.map.setView(this.city, this.zoom);
     this.icon = this.pin;
 
+    this.map.eachLayer((layer) => {
+      if (layer instanceof leaflet.Marker) {
+        this.map.removeLayer(layer);
+      }
+    });
+
     this.renderPin(this.city);
 
     offers.forEach((offer) => {
@@ -83,11 +89,6 @@ class Map extends PureComponent {
 
       this.renderPin(coordinates);
     });
-  }
-
-  componentWillUnmount() {
-    this.map.remove();
-    this.map = null;
   }
 
   render() {
