@@ -48,6 +48,7 @@ class OfferScreen extends PureComponent {
 
     if (Object.keys(offer).length !== 0) {
       const {
+        id,
         description,
         features,
         isFavorite,
@@ -178,7 +179,7 @@ class OfferScreen extends PureComponent {
                   <section className="property__reviews reviews">
                     <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
                     <ReviewsList reviews={reviews} />
-                    {isAuth && <ReviewForm/>}
+                    {isAuth && <ReviewForm id={id}/>}
                   </section>
                 </div>
               </div>

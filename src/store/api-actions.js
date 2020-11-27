@@ -63,3 +63,11 @@ export const login = ({login: email, password}) => (dispatch, _getState, api) =>
     .then(() => dispatch(requireAuthorization(AuthorizationStatus.AUTH)))
     .then(() => dispatch(redirectToRoute(AppRoute.ROOT)))
 );
+
+export const fetchWithComment = (id, sendData) => (dispatch, _getState, api) => (
+  api.post(`${APIRoute.COMMENTS}/${id}`, sendData)
+    .then(({data}) => dispatch(loadComments(data)))
+    .catch((err) => {
+      throw err;
+    })
+);
