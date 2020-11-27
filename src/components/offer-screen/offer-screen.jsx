@@ -7,7 +7,7 @@ import ReviewForm from "../review-form/review-form";
 import Map from "../map/map";
 import {changeOfferActive} from "../../store/action";
 import NearPlacesList from "../near-places-list/near-places-list";
-import {fetchOffer, fetchCommentList, fetchOffersNearby, fetchFavoriteOfferList, favorite} from "../../store/api-actions";
+import {fetchOffer, fetchCommentList, fetchOffersNearby, favorite} from "../../store/api-actions";
 import {AppRoute, AuthorizationStatus, FavoriteAction} from "../../const";
 
 import {getOffer, getComments, getOfferNearby} from "../../store/reducers/offers-data/selectors";
@@ -42,7 +42,6 @@ class OfferScreen extends PureComponent {
       offerActive,
       authorizationStatus,
       user,
-      onClickFavorite,
       redirectLoginClick,
       onClickAddFavorite
     } = this.props;
@@ -79,9 +78,7 @@ class OfferScreen extends PureComponent {
                 <nav className="header__nav">
                   <ul className="header__nav-list">
                     <li className="header__nav-item user">
-                      {(isAuth && <Link to={AppRoute.FAVORITES} className="header__nav-link header__nav-link--profile" onClick={() => {
-                        onClickFavorite();
-                      }}>
+                      {(isAuth && <Link to={AppRoute.FAVORITES} className="header__nav-link header__nav-link--profile">
                         <div className="header__avatar-wrapper user__avatar-wrapper" style={{backgroundImage: `url(${user[`avatar_url`]})`, borderRadius: `50%`}}>
                         </div>
                         <span className="header__user-name user__name">{user.email}</span>
@@ -242,7 +239,6 @@ OfferScreen.propTypes = {
     [`avatar_url`]: PropTypes.string,
     [`is_pro`]: PropTypes.bool
   }).isRequired,
-  onClickFavorite: PropTypes.func.isRequired,
   redirectLoginClick: PropTypes.func.isRequired,
   onClickAddFavorite: PropTypes.func.isRequired
 };
@@ -269,9 +265,6 @@ const mapDispatchToProps = (dispatch) => ({
   },
   changeOfferActiveAction(activeOffer) {
     dispatch(changeOfferActive(activeOffer));
-  },
-  onClickFavorite() {
-    dispatch(fetchFavoriteOfferList());
   },
   onClickAddFavorite(id, isFavorite, favoriteAction) {
     dispatch(favorite(id, isFavorite, favoriteAction));
