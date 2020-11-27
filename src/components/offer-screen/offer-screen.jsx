@@ -7,7 +7,7 @@ import ReviewForm from "../review-form/review-form";
 import Map from "../map/map";
 import {changeOfferActive} from "../../store/action";
 import NearPlacesList from "../near-places-list/near-places-list";
-import {fetchOffer, fetchCommentList, fetchOffersNearby, fetchFavoriteOfferList} from "../../store/api-actions";
+import {fetchOffer, fetchCommentList, fetchOffersNearby, fetchFavoriteOfferList, favorite} from "../../store/api-actions";
 import {AppRoute, AuthorizationStatus} from "../../const";
 
 import {getOffer, getComments, getOfferNearby} from "../../store/reducers/offers-data/selectors";
@@ -43,7 +43,8 @@ class OfferScreen extends PureComponent {
       authorizationStatus,
       user,
       onClickFavorite,
-      redirectLoginClick
+      redirectLoginClick,
+      onClickAddFavorite
     } = this.props;
 
     if (Object.keys(offer).length !== 0) {
@@ -117,7 +118,9 @@ class OfferScreen extends PureComponent {
                       {title}
                     </h1>
                     <button className={`property__bookmark-button ${isFavorite && `property__bookmark-button--active`} button`} type="button" onClick={() => {
-                      if (!isAuth) {
+                      if (isAuth) {
+                        onClickAddFavorite(id, Number(!isFavorite));
+                      } else {
                         redirectLoginClick();
                       }
                     }}>
@@ -233,7 +236,8 @@ OfferScreen.propTypes = {
     [`is_pro`]: PropTypes.bool
   }).isRequired,
   onClickFavorite: PropTypes.func.isRequired,
-  redirectLoginClick: PropTypes.func.isRequired
+  redirectLoginClick: PropTypes.func.isRequired,
+  onClickAddFavorite: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -261,6 +265,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onClickFavorite() {
     dispatch(fetchFavoriteOfferList());
+  },
+  onClickAddFavorite(id, isFavorite) {
+    dispatch(favorite(id, isFavorite));
   }
 });
 

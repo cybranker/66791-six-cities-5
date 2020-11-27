@@ -71,3 +71,11 @@ export const fetchWithComment = (id, sendData) => (dispatch, _getState, api) => 
       throw err;
     })
 );
+
+export const favorite = (id, isFavorite) => (dispatch, _getState, api) => (
+  api.post(`${APIRoute.FAVORITE}/${id}/${isFavorite}`)
+    .then(({data}) => dispatch(loadOffer([data].map(adaptOffersToClient)[0])))
+    .catch((err) => {
+      throw err;
+    })
+);
