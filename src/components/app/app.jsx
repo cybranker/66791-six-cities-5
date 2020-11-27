@@ -22,7 +22,7 @@ const App = () => {
           }}
         />
         <Route exact path={`${AppRoute.OFFER}/:id`}
-          render={(params) => <OfferScreen key={params.match.params.id} {...params}/>}
+          render={(params) => <OfferScreen redirectLoginClick={() => params.history.push(AppRoute.LOGIN)} key={params.match.params.id} {...params}/>}
         />
         <Route exact path={AppRoute.LOGIN}>
           <AuthScreen />

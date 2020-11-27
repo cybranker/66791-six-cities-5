@@ -5,17 +5,18 @@ import {connect} from "react-redux";
 import ReviewsList from "../reviews-list/reviews-list";
 import ReviewForm from "../review-form/review-form";
 import Map from "../map/map";
+import {changeOfferActive} from "../../store/action";
 import NearPlacesList from "../near-places-list/near-places-list";
-import {fetchOffer, fetchCommentList, fetchOffersNearby} from "../../store/api-actions";
-import {AppRoute} from "../../const";
+import {fetchOffer, fetchCommentList, fetchOffersNearby, fetchFavoriteOfferList} from "../../store/api-actions";
+import {AppRoute, AuthorizationStatus} from "../../const";
 
 import {getOffer, getComments, getOfferNearby} from "../../store/reducers/offers-data/selectors";
 import {getCity, getOfferActive} from "../../store/reducers/offers-process/selectors";
+import {getAuthorizationStatus, getUser} from "../../store/reducers/user/selectors";
 
 import placeCardProp from "../place-card/place-card.prop";
 import reviewsListProp from "../reviews-list/reviews-list.prop";
 import mainScreenProp from "../main-screen/main-screen.prop";
-import {changeOfferActive} from "../../store/action";
 
 class OfferScreen extends PureComponent {
   constructor(props) {
@@ -32,7 +33,18 @@ class OfferScreen extends PureComponent {
   }
 
   render() {
-    const {offer, reviews, city, nearby, changeOfferActiveAction, offerActive} = this.props;
+    const {
+      offer,
+      reviews,
+      city,
+      nearby,
+      changeOfferActiveAction,
+      offerActive,
+      authorizationStatus,
+      user,
+      onClickFavorite,
+      redirectLoginClick
+    } = this.props;
 
     if (Object.keys(offer).length !== 0) {
       const {
@@ -49,6 +61,8 @@ class OfferScreen extends PureComponent {
         title,
         type
       } = offer;
+      const isAuth = authorizationStatus === AuthorizationStatus.AUTH;
+      const isNearby = nearby.length > 0;
 
       return (
         <div className="page">
@@ -63,11 +77,17 @@ class OfferScreen extends PureComponent {
                 <nav className="header__nav">
                   <ul className="header__nav-list">
                     <li className="header__nav-item user">
-                      <Link to={AppRoute.FAVORITES} className="header__nav-link header__nav-link--profile">
+                      {(isAuth && <Link to={AppRoute.FAVORITES} className="header__nav-link header__nav-link--profile" onClick={() => {
+                        onClickFavorite();
+                      }}>
+                        <div className="header__avatar-wrapper user__avatar-wrapper" style={{backgroundImage: `url(${user[`avatar_url`]})`, borderRadius: `50%`}}>
+                        </div>
+                        <span className="header__user-name user__name">{user.email}</span>
+                      </Link>) || <Link to={AppRoute.LOGIN} className="header__nav-link header__nav-link--profile">
                         <div className="header__avatar-wrapper user__avatar-wrapper">
                         </div>
-                        <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                      </Link>
+                        <span className="header__login">Sign in</span>
+                      </Link>}
                     </li>
                   </ul>
                 </nav>
@@ -95,7 +115,11 @@ class OfferScreen extends PureComponent {
                     <h1 className="property__name">
                       {title}
                     </h1>
-                    <button className={`property__bookmark-button ${isFavorite && `property__bookmark-button--active`} button`} type="button">
+                    <button className={`property__bookmark-button ${isFavorite && `property__bookmark-button--active`} button`} type="button" onClick={() => {
+                      if (!isAuth) {
+                        redirectLoginClick();
+                      }
+                    }}>
                       <svg className={`property__bookmark-icon ${isFavorite && `place-card__bookmark-icon`}`} width="31" height="33">
                         <use xlinkHref="#icon-bookmark"></use>
                       </svg>
@@ -154,16 +178,16 @@ class OfferScreen extends PureComponent {
                   <section className="property__reviews reviews">
                     <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
                     <ReviewsList reviews={reviews} />
-                    <ReviewForm/>
+                    {isAuth && <ReviewForm/>}
                   </section>
                 </div>
               </div>
-              {nearby.length > 0 && <section className="property__map map">
+              {isNearby && <section className="property__map map">
                 <Map offers={nearby} currentCity={city} offerActive={offerActive}/>
               </section>}
             </section>
             <div className="container">
-              {nearby.length > 0 && <section className="near-places places">
+              {isNearby && <section className="near-places places">
                 <h2 className="near-places__title">Other places in the neighbourhood</h2>
                 <NearPlacesList offers={nearby} changeOfferActive={changeOfferActiveAction}/>
               </section>}
@@ -198,7 +222,17 @@ OfferScreen.propTypes = {
   loadOffersNearby: PropTypes.func.isRequired,
   changeOfferActiveAction: PropTypes.func.isRequired,
   offerActive: PropTypes.oneOfType([PropTypes.shape(), placeCardProp]).isRequired,
-  nearby: mainScreenProp
+  nearby: mainScreenProp,
+  authorizationStatus: PropTypes.string.isRequired,
+  user: PropTypes.shape({
+    id: PropTypes.number,
+    email: PropTypes.string,
+    name: PropTypes.string,
+    [`avatar_url`]: PropTypes.string,
+    [`is_pro`]: PropTypes.bool
+  }).isRequired,
+  onClickFavorite: PropTypes.func.isRequired,
+  redirectLoginClick: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -206,7 +240,9 @@ const mapStateToProps = (state) => ({
   offer: getOffer(state),
   reviews: getComments(state),
   nearby: getOfferNearby(state),
-  offerActive: getOfferActive(state)
+  offerActive: getOfferActive(state),
+  authorizationStatus: getAuthorizationStatus(state),
+  user: getUser(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -222,6 +258,9 @@ const mapDispatchToProps = (dispatch) => ({
   changeOfferActiveAction(activeOffer) {
     dispatch(changeOfferActive(activeOffer));
   },
+  onClickFavorite() {
+    dispatch(fetchFavoriteOfferList());
+  }
 });
 
 export {OfferScreen};
