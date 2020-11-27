@@ -29,6 +29,13 @@ export const AuthorizationStatus = {
   NO_AUTH: `NO_AUTH`,
 };
 
+export const FavoriteAction = {
+  NEARBY: `nearby`,
+  OFFER: `offer`,
+  OFFERS: `offers`,
+  FAVORITES: `favorites`
+};
+
 export const AppRoute = {
   LOGIN: `/login`,
   FAVORITES: `/favorites`,

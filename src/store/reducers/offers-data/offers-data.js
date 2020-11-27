@@ -33,6 +33,18 @@ export const offersData = (state = initialState, action) => {
       return extend(state, {
         offerNearby: action.payload
       });
+    case ActionType.INSTALL_FAVORITE_NEARBY:
+      return extend(state, {
+        offerNearby: state.offerNearby.map((it) => it.id === action.payload.id ? extend(it, {isFavorite: action.payload.isFavorite}) : it)
+      });
+    case ActionType.INSTALL_FAVORITE_OFFERS:
+      return extend(state, {
+        offers: action.payload
+      });
+    case ActionType.INSTALL_FAVORITE_FAVORITES:
+      return extend(state, {
+        favoriteOffers: action.payload
+      });
     default:
       return state;
   }

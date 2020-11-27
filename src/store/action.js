@@ -10,7 +10,10 @@ export const ActionType = {
   LOAD_FAVORITE_OFFERS: `LOAD_FAVORITE_OFFERS`,
   LOAD_OFFER: `LOAD_OFFER`,
   LOAD_COMMENTS: `LOAD_COMMENTS`,
-  LOAD_NEARBY: `LOAD_NEARBY`
+  LOAD_NEARBY: `LOAD_NEARBY`,
+  INSTALL_FAVORITE_NEARBY: `INSTALL_FAVORITE_NEARBY`,
+  INSTALL_FAVORITE_OFFERS: `INSTALL_FAVORITE_OFFERS`,
+  INSTALL_FAVORITE_FAVORITES: `INSTALL_FAVORITE_FAVORITES`
 };
 
 export const changeCity = (city) => ({
@@ -70,4 +73,19 @@ export const redirectToRoute = (url) => ({
 export const loadUser = (user) => ({
   type: ActionType.LOAD_USER,
   payload: user
+});
+
+export const installFavoriteNearby = (offer) => ({
+  type: ActionType.INSTALL_FAVORITE_NEARBY,
+  payload: offer
+});
+
+export const installFavoriteOffers = (offer) => ({
+  type: ActionType.INSTALL_FAVORITE_OFFERS,
+  payload: offer
+});
+
+export const installFavoriteFavorites = (offer) => ({
+  type: ActionType.INSTALL_FAVORITE_FAVORITES,
+  payload: offer
 });

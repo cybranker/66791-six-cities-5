@@ -6,9 +6,12 @@ import {
   redirectToRoute,
   loadOffer,
   loadComments,
-  loadNearby
+  loadNearby,
+  installFavoriteNearby,
+  installFavoriteOffers,
+  installFavoriteFavorites
 } from "./action";
-import {AuthorizationStatus, AppRoute, APIRoute} from "../const";
+import {AuthorizationStatus, AppRoute, APIRoute, FavoriteAction} from "../const";
 import {adaptOffersToClient} from "../adapt";
 
 export const fetchOfferList = () => (dispatch, _getState, api) => (
@@ -72,9 +75,23 @@ export const fetchWithComment = (id, sendData) => (dispatch, _getState, api) => 
     })
 );
 
-export const favorite = (id, isFavorite) => (dispatch, _getState, api) => (
+export const favorite = (id, isFavorite, favoriteAction) => (dispatch, _getState, api) => (
   api.post(`${APIRoute.FAVORITE}/${id}/${isFavorite}`)
-    .then(({data}) => dispatch(loadOffer([data].map(adaptOffersToClient)[0])))
+    .then(({data}) => {
+      switch (favoriteAction) {
+        case FavoriteAction.OFFERS:
+          dispatch(installFavoriteOffers([data].map(adaptOffersToClient)[0]));
+          break;
+        case FavoriteAction.NEARBY:
+          dispatch(installFavoriteNearby([data].map(adaptOffersToClient)[0]));
+          break;
+        case FavoriteAction.FAVORITES:
+          dispatch(installFavoriteFavorites([data].map(adaptOffersToClient)[0]));
+          break;
+        default:
+          dispatch(loadOffer([data].map(adaptOffersToClient)[0]));
+      }
+    })
     .catch((err) => {
       throw err;
     })

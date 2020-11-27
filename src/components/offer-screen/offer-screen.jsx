@@ -8,7 +8,7 @@ import Map from "../map/map";
 import {changeOfferActive} from "../../store/action";
 import NearPlacesList from "../near-places-list/near-places-list";
 import {fetchOffer, fetchCommentList, fetchOffersNearby, fetchFavoriteOfferList, favorite} from "../../store/api-actions";
-import {AppRoute, AuthorizationStatus} from "../../const";
+import {AppRoute, AuthorizationStatus, FavoriteAction} from "../../const";
 
 import {getOffer, getComments, getOfferNearby} from "../../store/reducers/offers-data/selectors";
 import {getCity, getOfferActive} from "../../store/reducers/offers-process/selectors";
@@ -119,7 +119,7 @@ class OfferScreen extends PureComponent {
                     </h1>
                     <button className={`property__bookmark-button ${isFavorite && `property__bookmark-button--active`} button`} type="button" onClick={() => {
                       if (isAuth) {
-                        onClickAddFavorite(id, Number(!isFavorite));
+                        onClickAddFavorite(id, Number(!isFavorite), FavoriteAction.OFFER);
                       } else {
                         redirectLoginClick();
                       }
@@ -193,7 +193,7 @@ class OfferScreen extends PureComponent {
             <div className="container">
               {isNearby && <section className="near-places places">
                 <h2 className="near-places__title">Other places in the neighbourhood</h2>
-                <NearPlacesList offers={nearby} changeOfferActive={changeOfferActiveAction}/>
+                <NearPlacesList offers={nearby} changeOfferActive={changeOfferActiveAction} isAuth={isAuth} redirectLoginClick={redirectLoginClick} favoriteAction={FavoriteAction.NEARBY} onClickAddFavorite={onClickAddFavorite}/>
               </section>}
             </div>
           </main>
@@ -266,8 +266,8 @@ const mapDispatchToProps = (dispatch) => ({
   onClickFavorite() {
     dispatch(fetchFavoriteOfferList());
   },
-  onClickAddFavorite(id, isFavorite) {
-    dispatch(favorite(id, isFavorite));
+  onClickAddFavorite(id, isFavorite, favoriteAction) {
+    dispatch(favorite(id, isFavorite, favoriteAction));
   }
 });
 
