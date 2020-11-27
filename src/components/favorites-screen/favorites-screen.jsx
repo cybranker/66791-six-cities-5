@@ -2,8 +2,8 @@ import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
 import {connect} from "react-redux";
-import {fetchFavoriteOfferList} from "../../store/api-actions";
-import {AppRoute, AuthorizationStatus} from "../../const";
+import {fetchFavoriteOfferList, favorite} from "../../store/api-actions";
+import {AppRoute, AuthorizationStatus, FavoriteAction} from "../../const";
 import EmptyFavorites from "../empty-favorites/empty-favorites";
 
 import {getFavoriteOffers} from "../../store/reducers/offers-data/selectors";
@@ -23,7 +23,7 @@ class FavoritesScreen extends PureComponent {
   }
 
   render() {
-    const {offers, authorizationStatus, user} = this.props;
+    const {offers, authorizationStatus, user, redirectLoginClick, onClickAddFavorite} = this.props;
     const favoriteOffers = offers.slice().sort((it1, it2) => {
       if (it1.city.name > it2.city.name) {
         return 1;
@@ -33,6 +33,7 @@ class FavoritesScreen extends PureComponent {
         return 0;
       }
     });
+    const isAuth = authorizationStatus === AuthorizationStatus.AUTH;
     const isFavoriteOffers = offers.length > 0;
     let currentCity = ``;
 
@@ -49,7 +50,7 @@ class FavoritesScreen extends PureComponent {
               <nav className="header__nav">
                 <ul className="header__nav-list">
                   <li className="header__nav-item user">
-                    {(authorizationStatus === AuthorizationStatus.AUTH && <Link to={AppRoute.FAVORITES} className="header__nav-link header__nav-link--profile">
+                    {(isAuth && <Link to={AppRoute.FAVORITES} className="header__nav-link header__nav-link--profile">
                       <div className="header__avatar-wrapper user__avatar-wrapper" style={{backgroundImage: `url(${user[`avatar_url`]})`, borderRadius: `50%`}}>
                       </div>
                       <span className="header__user-name user__name">{user.email}</span>
@@ -99,7 +100,13 @@ class FavoritesScreen extends PureComponent {
                                     <b className="place-card__price-value">&euro;{price}</b>
                                     <span className="place-card__price-text">&#47;&nbsp;night</span>
                                   </div>
-                                  <button className={`place-card__bookmark-button ${isFavorite && `place-card__bookmark-button--active`} button`} type="button">
+                                  <button className={`place-card__bookmark-button ${isFavorite && `place-card__bookmark-button--active`} button`} type="button" onClick={() => {
+                                    if (isAuth) {
+                                      onClickAddFavorite(id, Number(!isFavorite), FavoriteAction.FAVORITES);
+                                    } else {
+                                      redirectLoginClick();
+                                    }
+                                  }}>
                                     <svg className="place-card__bookmark-icon" width="18" height="19">
                                       <use xlinkHref="#icon-bookmark"></use>
                                     </svg>
@@ -152,7 +159,9 @@ FavoritesScreen.propTypes = {
     [`avatar_url`]: PropTypes.string,
     [`is_pro`]: PropTypes.bool
   }).isRequired,
-  loadFavorites: PropTypes.func.isRequired
+  loadFavorites: PropTypes.func.isRequired,
+  redirectLoginClick: PropTypes.func.isRequired,
+  onClickAddFavorite: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -164,6 +173,9 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   loadFavorites() {
     dispatch(fetchFavoriteOfferList());
+  },
+  onClickAddFavorite(id, isFavorite, favoriteAction) {
+    dispatch(favorite(id, isFavorite, favoriteAction));
   }
 });
 

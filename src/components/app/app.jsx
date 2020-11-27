@@ -15,9 +15,9 @@ const App = () => {
         <PrivateRoute
           exact
           path={AppRoute.FAVORITES}
-          render={() => {
+          render={({history}) => {
             return (
-              <FavoritesScreen/>
+              <FavoritesScreen redirectLoginClick={() => history.push(AppRoute.LOGIN)}/>
             );
           }}
         />
