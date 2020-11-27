@@ -193,7 +193,14 @@ class OfferScreen extends PureComponent {
             <div className="container">
               {isNearby && <section className="near-places places">
                 <h2 className="near-places__title">Other places in the neighbourhood</h2>
-                <NearPlacesList offers={nearby} changeOfferActive={changeOfferActiveAction} isAuth={isAuth} redirectLoginClick={redirectLoginClick} favoriteAction={FavoriteAction.NEARBY} onClickAddFavorite={onClickAddFavorite}/>
+                <NearPlacesList
+                  offers={nearby}
+                  changeOfferActive={changeOfferActiveAction}
+                  isAuth={isAuth}
+                  redirectLoginClick={redirectLoginClick}
+                  favoriteAction={FavoriteAction.NEARBY}
+                  onClickAddFavorite={onClickAddFavorite}
+                />
               </section>}
             </div>
           </main>

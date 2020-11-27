@@ -3,14 +3,14 @@ import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
 import {connect} from "react-redux";
 import {changeCity, toggleSortList, changeSortType, changeOfferActive} from "../../store/action";
-import {fetchFavoriteOfferList} from "../../store/api-actions";
+import {fetchFavoriteOfferList, favorite} from "../../store/api-actions";
 import CitiesPlacesList from "../cities-places-list/cities-places-list";
 import Map from "../map/map";
 import {upperFirst, sortPriceLowToHigh, sortPriceHighToLow, sortRated} from "../../utils";
 import CitiesList from "../cities-list/cities-list";
 import SortList from "../sort-list/sort-list";
 import EmptyOffers from "../empty-offers/empty-offers";
-import {SortType, SortTypeName, AuthorizationStatus, AppRoute} from "../../const";
+import {SortType, SortTypeName, AuthorizationStatus, AppRoute, FavoriteAction} from "../../const";
 
 import {getOffersCurrentCity} from "../../store/reducers/offers-data/selectors";
 import {getCity, getOfferActive} from "../../store/reducers/offers-process/selectors";
@@ -32,9 +32,12 @@ const MainScreen = (props) => {
     changeOfferActiveAction,
     authorizationStatus,
     user,
-    onClickFavorite
+    onClickFavorite,
+    redirectLoginClick,
+    onClickAddFavorite
   } = props;
   const cityParam = upperFirst(props.match.params.city);
+  const isAuth = authorizationStatus === AuthorizationStatus.AUTH;
   let {offers} = props;
 
   if (cityParam && cityParam !== city.name) {
@@ -66,7 +69,7 @@ const MainScreen = (props) => {
             <nav className="header__nav">
               <ul className="header__nav-list">
                 <li className="header__nav-item user">
-                  {(authorizationStatus === AuthorizationStatus.AUTH && <Link to={AppRoute.FAVORITES} className="header__nav-link header__nav-link--profile" onClick={() => {
+                  {(isAuth && <Link to={AppRoute.FAVORITES} className="header__nav-link header__nav-link--profile" onClick={() => {
                     onClickFavorite();
                   }}>
                     <div className="header__avatar-wrapper user__avatar-wrapper" style={{backgroundImage: `url(${user[`avatar_url`]})`, borderRadius: `50%`}}>
@@ -106,7 +109,14 @@ const MainScreen = (props) => {
                 </span>
                 <SortList isOpenSortList={isOpenSortList} sortType={sortType} toggleSortList={toggleSortListAction} changeSortType={changeSortTypeAction} />
               </form>
-              <CitiesPlacesList offers={offers} changeOfferActive={changeOfferActiveAction}/>
+              <CitiesPlacesList
+                offers={offers}
+                changeOfferActive={changeOfferActiveAction}
+                isAuth={isAuth}
+                redirectLoginClick={redirectLoginClick}
+                favoriteAction={FavoriteAction.OFFERS}
+                onClickAddFavorite={onClickAddFavorite}
+              />
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
@@ -151,7 +161,9 @@ MainScreen.propTypes = {
     [`avatar_url`]: PropTypes.string,
     [`is_pro`]: PropTypes.bool
   }).isRequired,
-  onClickFavorite: PropTypes.func.isRequired
+  onClickFavorite: PropTypes.func.isRequired,
+  redirectLoginClick: PropTypes.func.isRequired,
+  onClickAddFavorite: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -179,6 +191,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onClickFavorite() {
     dispatch(fetchFavoriteOfferList());
+  },
+  onClickAddFavorite(id, isFavorite, favoriteAction) {
+    dispatch(favorite(id, isFavorite, favoriteAction));
   }
 });
 

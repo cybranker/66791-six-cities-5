@@ -28,7 +28,7 @@ const App = () => {
           <AuthScreen />
         </Route>
         <Route exact path={`${AppRoute.ROOT}:city?`}
-          render={(params) => <MainScreen {...params}/>}
+          render={(params) => <MainScreen redirectLoginClick={() => params.history.push(AppRoute.LOGIN)} {...params}/>}
         />
       </Switch>
     </BrowserRouter>
