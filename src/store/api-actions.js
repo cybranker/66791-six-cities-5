@@ -21,7 +21,7 @@ export const fetchOfferList = () => (dispatch, _getState, api) => (
 
 export const fetchFavoriteOfferList = () => (dispatch, _getState, api) => (
   api.get(APIRoute.FAVORITE)
-    .then(({data}) => dispatch(loadFavoriteOffers(data)))
+    .then(({data}) => dispatch(loadFavoriteOffers(data.map(adaptOffersToClient))))
     .catch((err) => {
       throw err;
     })
