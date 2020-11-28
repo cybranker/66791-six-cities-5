@@ -43,8 +43,7 @@ export const offersData = (state = initialState, action) => {
       });
     case ActionType.INSTALL_FAVORITE_FAVORITES:
       return extend(state, {
-        favoriteOffers: state.favoriteOffers.filter((it) => it.id !== action.payload.id),
-        offers: state.offers.map((it) => it.id === action.payload.id ? extend(it, {isFavorite: action.payload.isFavorite}) : it)
+        favoriteOffers: state.favoriteOffers.filter((it) => it.id !== action.payload.id)
       });
     default:
       return state;

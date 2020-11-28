@@ -78,18 +78,23 @@ export const fetchWithComment = (id, sendData) => (dispatch, _getState, api) => 
 export const favorite = (id, isFavorite, favoriteAction) => (dispatch, _getState, api) => (
   api.post(`${APIRoute.FAVORITE}/${id}/${isFavorite}`)
     .then(({data}) => {
+      const offer = [data].map(adaptOffersToClient)[0];
+
       switch (favoriteAction) {
         case FavoriteAction.OFFERS:
-          dispatch(installFavoriteOffers([data].map(adaptOffersToClient)[0]));
+          dispatch(installFavoriteOffers(offer));
           break;
         case FavoriteAction.NEARBY:
-          dispatch(installFavoriteNearby([data].map(adaptOffersToClient)[0]));
+          dispatch(installFavoriteNearby(offer));
+          dispatch(installFavoriteOffers(offer));
           break;
         case FavoriteAction.FAVORITES:
-          dispatch(installFavoriteFavorites([data].map(adaptOffersToClient)[0]));
+          dispatch(installFavoriteFavorites(offer));
+          dispatch(installFavoriteOffers(offer));
           break;
         default:
-          dispatch(loadOffer([data].map(adaptOffersToClient)[0]));
+          dispatch(loadOffer(offer));
+          dispatch(installFavoriteOffers(offer));
       }
     })
     .catch((err) => {
