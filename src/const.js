@@ -50,3 +50,5 @@ export const APIRoute = {
   COMMENTS: `/comments`,
   LOGIN: `/login`
 };
+
+export const MAX_REVIEWS_COUNT = 10;
