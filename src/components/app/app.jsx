@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import {Switch, Route, Router as BrowserRouter} from "react-router-dom";
 import MainScreen from "../main-screen/main-screen";
 import OfferScreen from "../offer-screen/offer-screen";
@@ -9,38 +8,31 @@ import PrivateRoute from "../private-route/private-route";
 import browserHistory from "../../browser-history";
 import {AppRoute} from "../../const";
 
-const App = (props) => {
-  const {reviews} = props;
-
+const App = () => {
   return (
     <BrowserRouter history={browserHistory}>
       <Switch>
         <PrivateRoute
           exact
           path={AppRoute.FAVORITES}
-          render={() => {
+          render={({history}) => {
             return (
-              <FavoritesScreen/>
+              <FavoritesScreen redirectLoginClick={() => history.push(AppRoute.LOGIN)}/>
             );
           }}
         />
         <Route exact path={`${AppRoute.OFFER}/:id`}
-          render={(params) => <OfferScreen reviews={reviews} {...params}/>}
+          render={(params) => <OfferScreen redirectLoginClick={() => params.history.push(AppRoute.LOGIN)} key={params.match.params.id} {...params}/>}
         />
         <Route exact path={AppRoute.LOGIN}>
           <AuthScreen />
         </Route>
         <Route exact path={`${AppRoute.ROOT}:city?`}
-          render={(params) => <MainScreen {...params}/>}
+          render={(params) => <MainScreen redirectLoginClick={() => params.history.push(AppRoute.LOGIN)} {...params}/>}
         />
       </Switch>
     </BrowserRouter>
   );
 };
-
-App.propTypes = {
-  reviews: PropTypes.array.isRequired
-};
-
 
 export default App;

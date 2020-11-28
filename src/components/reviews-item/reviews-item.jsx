@@ -6,9 +6,9 @@ const ReviewsItem = ({review}) => {
     <li className="reviews__item">
       <div className="reviews__user user">
         <div className="reviews__avatar-wrapper user__avatar-wrapper">
-          <img className="reviews__avatar user__avatar" src={review.picture} width="54" height="54" alt="Reviews avatar"/>
+          <img className="reviews__avatar user__avatar" src={review.user.avatar_url} width="54" height="54" alt="Reviews avatar"/>
         </div>
-        <span className="reviews__user-name">{review.name}</span>
+        <span className="reviews__user-name">{review.user.name}</span>
       </div>
       <div className="reviews__info">
         <div className="reviews__rating rating">
@@ -20,7 +20,7 @@ const ReviewsItem = ({review}) => {
         <p className="reviews__text">
           {review.comment}
         </p>
-        <time className="reviews__time" dateTime="2019-04-24">{review.date.toLocaleDateString(`en-US`, {year: `numeric`, month: `long`})}</time>
+        <time className="reviews__time" dateTime="2019-04-24">{new Date(review.date).toLocaleDateString(`en-US`, {year: `numeric`, month: `long`})}</time>
       </div>
     </li>
   );

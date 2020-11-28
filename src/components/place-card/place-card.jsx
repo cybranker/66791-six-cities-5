@@ -6,7 +6,7 @@ import {PlaceType, AppRoute} from "../../const";
 import placeCardProp from "./place-card.prop";
 
 const PlaceCard = (props) => {
-  const {offer, placeType, changeOfferActive} = props;
+  const {offer, placeType, changeOfferActive, redirectLoginClick, onClickAddFavorite, favoriteAction, isAuth} = props;
   const {
     id,
     isPremium,
@@ -38,7 +38,13 @@ const PlaceCard = (props) => {
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className={`place-card__bookmark-button ${isFavorite && `place-card__bookmark-button--active`} button`} type="button">
+          <button className={`place-card__bookmark-button ${isFavorite && `place-card__bookmark-button--active`} button`} type="button" onClick={() => {
+            if (isAuth) {
+              onClickAddFavorite(id, Number(!isFavorite), favoriteAction);
+            } else {
+              redirectLoginClick();
+            }
+          }}>
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
             </svg>
@@ -63,7 +69,11 @@ const PlaceCard = (props) => {
 PlaceCard.propTypes = {
   placeType: PropTypes.string.isRequired,
   offer: placeCardProp,
-  changeOfferActive: PropTypes.func.isRequired
+  changeOfferActive: PropTypes.func.isRequired,
+  redirectLoginClick: PropTypes.func.isRequired,
+  onClickAddFavorite: PropTypes.func.isRequired,
+  favoriteAction: PropTypes.string.isRequired,
+  isAuth: PropTypes.bool.isRequired
 };
 
 export default PlaceCard;

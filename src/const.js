@@ -29,16 +29,28 @@ export const AuthorizationStatus = {
   NO_AUTH: `NO_AUTH`,
 };
 
+export const FavoriteAction = {
+  NEARBY: `nearby`,
+  OFFER: `offer`,
+  OFFERS: `offers`,
+  FAVORITES: `favorites`
+};
+
 export const AppRoute = {
   LOGIN: `/login`,
   FAVORITES: `/favorites`,
-  OFFER: `/offer/`,
+  OFFER: `/offer`,
   ROOT: `/`
 };
 
 export const APIRoute = {
   HOTELS: `/hotels`,
+  NEARBY: `/nearby`,
   FAVORITE: `/favorite`,
   COMMENTS: `/comments`,
   LOGIN: `/login`
 };
+
+export const MAX_REVIEWS_COUNT = 10;
+
+export const MIN_CHARACTERS_COUNT = 50;
