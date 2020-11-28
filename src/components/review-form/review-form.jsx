@@ -6,6 +6,7 @@ import withForm from "../../hocs/with-form/with-form";
 import {MIN_CHARACTERS_COUNT} from "../../const";
 
 const ReviewForm = (props) => {
+  const reviewsSubmitRef = React.createRef();
   const {id, onFieldChange, stateForm, onSubmit} = props;
 
   return (
@@ -21,6 +22,7 @@ const ReviewForm = (props) => {
       onSubmit(id, fields);
 
       reviewsForm.reset();
+      reviewsSubmitRef.current.disabled = true;
     }}>
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
@@ -65,7 +67,7 @@ const ReviewForm = (props) => {
           To submit review please make sure to set <span className="reviews__star">rating</span> and
           describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
-        <button className="reviews__submit form__submit button" type="submit" disabled={
+        <button ref={reviewsSubmitRef} className="reviews__submit form__submit button" type="submit" disabled={
           ((stateForm.hasOwnProperty(`rating`)
             && stateForm.rating.length > 0)
           && (stateForm.hasOwnProperty(`review`)
