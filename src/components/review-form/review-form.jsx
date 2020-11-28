@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {fetchWithComment} from "../../store/api-actions";
 import withForm from "../../hocs/with-form/with-form";
+import {MIN_CHARACTERS_COUNT} from "../../const";
 
 const ReviewForm = (props) => {
   const {id, onFieldChange, stateForm, onSubmit} = props;
@@ -11,12 +12,17 @@ const ReviewForm = (props) => {
     <form className="reviews__form form" action="#" method="post" onSubmit={(evt) => {
       evt.preventDefault();
 
-      onSubmit(id, {
+      const reviewsForm = evt.target;
+      const fields = {
         comment: stateForm.review,
         rating: stateForm.rating
-      });
+      };
 
-      evt.target.reset();
+      if (fields.rating.length && fields.comment.length > MIN_CHARACTERS_COUNT) {
+        onSubmit(id, fields);
+      }
+
+      reviewsForm.reset();
     }}>
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
@@ -55,13 +61,18 @@ const ReviewForm = (props) => {
           </svg>
         </label>
       </div>
-      <textarea className="reviews__textarea form__textarea" id="review" name="review" placeholder="Tell how was your stay, what you like and what can be improved" required onChange={onFieldChange}></textarea>
+      <textarea className="reviews__textarea form__textarea" id="review" name="review" placeholder="Tell how was your stay, what you like and what can be improved" maxLength="300" required onChange={onFieldChange}></textarea>
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
           To submit review please make sure to set <span className="reviews__star">rating</span> and
           describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
-        <button className="reviews__submit form__submit button" type="submit" disabled="">Submit</button>
+        <button className="reviews__submit form__submit button" type="submit" disabled={
+          ((stateForm.hasOwnProperty(`rating`)
+            && stateForm.rating.length > 0)
+          && (stateForm.hasOwnProperty(`review`)
+            && stateForm.review.length > MIN_CHARACTERS_COUNT)) ? `` : `disabled`
+        }>Submit</button>
       </div>
     </form>
   );

@@ -52,3 +52,5 @@ export const APIRoute = {
 };
 
 export const MAX_REVIEWS_COUNT = 10;
+
+export const MIN_CHARACTERS_COUNT = 50;
