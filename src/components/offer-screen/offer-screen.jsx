@@ -11,7 +11,7 @@ import {fetchOffer, fetchCommentList, fetchOffersNearby, favorite} from "../../s
 import {AppRoute, AuthorizationStatus, FavoriteAction} from "../../const";
 
 import {getOffer, getComments, getOfferNearby} from "../../store/reducers/offers-data/selectors";
-import {getCity, getOfferActive} from "../../store/reducers/offers-process/selectors";
+import {getOfferActive} from "../../store/reducers/offers-process/selectors";
 import {getAuthorizationStatus, getUser} from "../../store/reducers/user/selectors";
 
 import placeCardProp from "../place-card/place-card.prop";
@@ -36,7 +36,6 @@ class OfferScreen extends PureComponent {
     const {
       offer,
       reviews,
-      city,
       nearby,
       changeOfferActiveAction,
       offerActive,
@@ -49,6 +48,7 @@ class OfferScreen extends PureComponent {
     if (Object.keys(offer).length !== 0) {
       const {
         id,
+        city,
         description,
         features,
         isFavorite,
@@ -244,7 +244,6 @@ OfferScreen.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  city: getCity(state),
   offer: getOffer(state),
   reviews: getComments(state),
   nearby: getOfferNearby(state),
