@@ -18,9 +18,7 @@ const ReviewForm = (props) => {
         rating: stateForm.rating
       };
 
-      if (fields.rating.length && fields.comment.length > MIN_CHARACTERS_COUNT) {
-        onSubmit(id, fields);
-      }
+      onSubmit(id, fields);
 
       reviewsForm.reset();
     }}>
