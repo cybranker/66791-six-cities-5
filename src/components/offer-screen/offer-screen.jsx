@@ -60,7 +60,8 @@ class OfferScreen extends PureComponent {
         price,
         rating,
         title,
-        type
+        type,
+        location
       } = offer;
       const isAuth = authorizationStatus === AuthorizationStatus.AUTH;
       const isNearby = nearby.length > 0;
@@ -184,7 +185,12 @@ class OfferScreen extends PureComponent {
                 </div>
               </div>
               {isNearby && <section className="property__map map">
-                <Map offers={nearby} currentCity={city} offerActive={offerActive}/>
+                <Map
+                  offers={nearby}
+                  currentCity={city}
+                  currentOfferLocation={location}
+                  offerActive={offerActive}
+                />
               </section>}
             </section>
             <div className="container">
@@ -214,14 +220,6 @@ OfferScreen.propTypes = {
     params: PropTypes.shape({
       id: PropTypes.string.isRequired
     }).isRequired
-  }).isRequired,
-  city: PropTypes.shape({
-    location: PropTypes.shape({
-      lat: PropTypes.number.isRequired,
-      lon: PropTypes.number.isRequired,
-      zoom: PropTypes.number.isRequired
-    }).isRequired,
-    name: PropTypes.string.isRequired
   }).isRequired,
   offer: placeCardProp,
   reviews: reviewsListProp,

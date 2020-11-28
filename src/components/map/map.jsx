@@ -26,6 +26,7 @@ class Map extends PureComponent {
     });
     this.icon = null;
     this.map = null;
+    this.currentOffer = [];
   }
 
   renderPin(coordinates) {
@@ -37,8 +38,16 @@ class Map extends PureComponent {
       .addTo(map);
   }
 
+  renderCurrentOffer(location) {
+    if (location) {
+      this.currentOffer = [location.latitude, location.longitude];
+      this.icon = this.pinActive;
+      this.renderPin(this.currentOffer);
+    }
+  }
+
   componentDidMount() {
-    const {offers, currentCity} = this.props;
+    const {offers, currentCity, currentOfferLocation} = this.props;
     this.city = [currentCity.location.lat, currentCity.location.lon];
     this.icon = this.pin;
     this.zoom = 12;
@@ -56,16 +65,18 @@ class Map extends PureComponent {
       })
       .addTo(this.map);
 
-    this.renderPin(this.city);
+    this.renderCurrentOffer(currentOfferLocation);
 
     offers.forEach((offer) => {
       const {coordinates} = offer;
+
+      this.icon = this.pin;
       this.renderPin(coordinates);
     });
   }
 
   componentDidUpdate() {
-    const {offers, currentCity, offerActive} = this.props;
+    const {offers, currentCity, offerActive, currentOfferLocation} = this.props;
     this.city = [currentCity.location.lat, currentCity.location.lon];
     this.map.setView(this.city, this.zoom);
     this.icon = this.pin;
@@ -76,7 +87,7 @@ class Map extends PureComponent {
       }
     });
 
-    this.renderPin(this.city);
+    this.renderCurrentOffer(currentOfferLocation);
 
     offers.forEach((offer) => {
       const {coordinates} = offer;
@@ -107,6 +118,11 @@ Map.propTypes = {
     }).isRequired,
     name: PropTypes.string.isRequired
   }).isRequired,
+  currentOfferLocation: PropTypes.shape({
+    latitude: PropTypes.number.isRequired,
+    longitude: PropTypes.number.isRequired,
+    zoom: PropTypes.number.isRequired
+  }),
   offers: mainScreenProp,
   offerActive: PropTypes.oneOfType([PropTypes.shape(), placeCardProp]).isRequired
 };
