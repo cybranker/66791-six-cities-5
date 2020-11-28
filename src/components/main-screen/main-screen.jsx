@@ -3,17 +3,19 @@ import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
 import {connect} from "react-redux";
 import {changeCity, toggleSortList, changeSortType, changeOfferActive} from "../../store/action";
+import {fetchFavoriteOfferList} from "../../store/api-actions";
 import CitiesPlacesList from "../cities-places-list/cities-places-list";
 import Map from "../map/map";
 import {upperFirst, sortPriceLowToHigh, sortPriceHighToLow, sortRated} from "../../utils";
 import CitiesList from "../cities-list/cities-list";
 import SortList from "../sort-list/sort-list";
 import EmptyOffers from "../empty-offers/empty-offers";
-import {SortType, SortTypeName} from "../../const";
+import {SortType, SortTypeName, AuthorizationStatus, AppRoute} from "../../const";
 
 import {getOffersCurrentCity} from "../../store/reducers/offers-data/selectors";
 import {getCity, getOfferActive} from "../../store/reducers/offers-process/selectors";
 import {getIsOpenSortList, getSortType} from "../../store/reducers/offers-sorting/selectors";
+import {getAuthorizationStatus, getUser} from "../../store/reducers/user/selectors";
 
 import mainScreenProp from "./main-screen.prop";
 import placeCardProp from "../place-card/place-card.prop";
@@ -27,7 +29,10 @@ const MainScreen = (props) => {
     toggleSortListAction,
     changeSortTypeAction,
     offerActive,
-    changeOfferActiveAction
+    changeOfferActiveAction,
+    authorizationStatus,
+    user,
+    onClickFavorite
   } = props;
   const cityParam = upperFirst(props.match.params.city);
   let {offers} = props;
@@ -54,18 +59,24 @@ const MainScreen = (props) => {
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <Link to="/" className="header__logo-link header__logo-link--active">
+              <Link to={AppRoute.ROOT} className="header__logo-link header__logo-link--active">
                 <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41"/>
               </Link>
             </div>
             <nav className="header__nav">
               <ul className="header__nav-list">
                 <li className="header__nav-item user">
-                  <Link to="/favorites" className="header__nav-link header__nav-link--profile">
+                  {(authorizationStatus === AuthorizationStatus.AUTH && <Link to={AppRoute.FAVORITES} className="header__nav-link header__nav-link--profile" onClick={() => {
+                    onClickFavorite();
+                  }}>
+                    <div className="header__avatar-wrapper user__avatar-wrapper" style={{backgroundImage: `url(${user[`avatar_url`]})`, borderRadius: `50%`}}>
+                    </div>
+                    <span className="header__user-name user__name">{user.email}</span>
+                  </Link>) || <Link to={AppRoute.LOGIN} className="header__nav-link header__nav-link--profile">
                     <div className="header__avatar-wrapper user__avatar-wrapper">
                     </div>
-                    <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                  </Link>
+                    <span className="header__login">Sign in</span>
+                  </Link>}
                 </li>
               </ul>
             </nav>
@@ -131,7 +142,16 @@ MainScreen.propTypes = {
   toggleSortListAction: PropTypes.func.isRequired,
   changeSortTypeAction: PropTypes.func.isRequired,
   offerActive: PropTypes.oneOfType([PropTypes.shape(), placeCardProp]).isRequired,
-  changeOfferActiveAction: PropTypes.func.isRequired
+  changeOfferActiveAction: PropTypes.func.isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
+  user: PropTypes.shape({
+    id: PropTypes.number,
+    email: PropTypes.string,
+    name: PropTypes.string,
+    [`avatar_url`]: PropTypes.string,
+    [`is_pro`]: PropTypes.bool
+  }).isRequired,
+  onClickFavorite: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -140,6 +160,8 @@ const mapStateToProps = (state) => ({
   isOpenSortList: getIsOpenSortList(state),
   sortType: getSortType(state),
   offerActive: getOfferActive(state),
+  authorizationStatus: getAuthorizationStatus(state),
+  user: getUser(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -154,6 +176,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   changeOfferActiveAction(activeOffer) {
     dispatch(changeOfferActive(activeOffer));
+  },
+  onClickFavorite() {
+    dispatch(fetchFavoriteOfferList());
   }
 });
 

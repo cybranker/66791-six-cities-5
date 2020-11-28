@@ -23,3 +23,22 @@ export const SortTypeName = {
   [SortType.PRICE_HIGH_TO_LOW]: `Price: high to low`,
   [SortType.TOP_RATED]: `Top rated first`
 };
+
+export const AuthorizationStatus = {
+  AUTH: `AUTH`,
+  NO_AUTH: `NO_AUTH`,
+};
+
+export const AppRoute = {
+  LOGIN: `/login`,
+  FAVORITES: `/favorites`,
+  OFFER: `/offer/`,
+  ROOT: `/`
+};
+
+export const APIRoute = {
+  HOTELS: `/hotels`,
+  FAVORITE: `/favorite`,
+  COMMENTS: `/comments`,
+  LOGIN: `/login`
+};
