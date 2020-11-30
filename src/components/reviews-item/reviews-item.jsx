@@ -2,7 +2,6 @@ import React from "react";
 import reviewsItemProp from "./reviews-item.prop";
 
 const ReviewsItem = ({review}) => {
-  console.log(`review`, review);
   return (
     <li className="reviews__item">
       <div className="reviews__user user">
