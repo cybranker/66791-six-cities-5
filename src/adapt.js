@@ -35,6 +35,7 @@ export const adaptOffersToClient = (offer) => {
   delete adaptedOffer.goods;
   delete adaptedOffer.preview_image;
   delete adaptedOffer.images;
+  delete adaptedOffer.host;
   delete adaptedOffer.is_favorite;
   delete adaptedOffer.is_premium;
   delete adaptedOffer.max_adults;
