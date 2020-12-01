@@ -2,16 +2,23 @@ import React from "react";
 import renderer from "react-test-renderer";
 import {Provider} from "react-redux";
 import {MemoryRouter} from "react-router";
-
-import AuthScreen from "./auth-screen";
+import CitiesList from "./cities-list";
+import cities from "../../mocks/cities";
+import {city} from "../../data-test/data-test";
 import createStore from "../../mocks/mock-store";
 
-test(`Should AuthScreen render correctly`, () => {
+const noop = () => {};
+
+test(`Should CitiesList render correctly`, () => {
   const tree = renderer
     .create(
         <Provider store={createStore()}>
           <MemoryRouter>
-            <AuthScreen />
+            <CitiesList
+              currentCity={city}
+              changeCity={noop}
+              cities={cities}
+            />
           </MemoryRouter>
         </Provider>
     )

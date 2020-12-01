@@ -216,3 +216,18 @@ export const currentCity = {
   longitude: 6.756314000000001,
   zoom: 16
 };
+
+export const user = {
+  [`avatar_url`]: `https://assets.htmlacademy.ru/intensives/javascript-3/avatar/4.jpg`,
+  email: `cybranker@yandex.ru`,
+  id: 1,
+  [`is_pro`]: false,
+  name: `cybranker`
+};
+
+export const match = {
+  isExact: true,
+  params: {city: `cologne`},
+  path: `/:city?`,
+  url: `/cologne`
+};

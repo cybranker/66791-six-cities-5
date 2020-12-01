@@ -35,6 +35,7 @@ const MainScreen = (props) => {
     redirectLoginClick,
     onClickAddFavorite
   } = props;
+  console.log(props);
   const cityParam = upperFirst(props.match.params.city);
   const isAuth = authorizationStatus === AuthorizationStatus.AUTH;
   let {offers} = props;
