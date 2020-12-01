@@ -6,6 +6,7 @@ import withForm from "../../hocs/with-form/with-form";
 import {MIN_CHARACTERS_COUNT} from "../../const";
 
 const ReviewForm = (props) => {
+  console.log(`props`, props);
   const reviewsFieldsetRef = React.createRef();
   const {id, numberComments, onFieldChange, stateForm, onSubmit} = props;
 
