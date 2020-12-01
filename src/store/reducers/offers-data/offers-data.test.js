@@ -120,7 +120,7 @@ describe(`Async operation work correctly`, () => {
     const commentsLoader = fetchCommentList(`6`);
 
     apiMock
-      .onGet(`${APIRoute.HOTELS}6`)
+      .onGet(`${APIRoute.COMMENTS}/6`)
       .reply(200, [{fake: true}]);
 
     return commentsLoader(dispatch, () => {}, api)
