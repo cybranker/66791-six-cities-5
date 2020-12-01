@@ -2,7 +2,7 @@ import MockAdapter from "axios-mock-adapter";
 import {createAPI} from "../../../services/api";
 import {offersData} from "./offers-data";
 import {ActionType} from "../../action";
-import {fetchOfferList, fetchFavoriteOfferList, fetchCommentList} from "../../api-actions";
+import {fetchOfferList, fetchFavoriteOfferList, fetchCommentList, fetchOffersNearby} from "../../api-actions";
 import {APIRoute} from "../../../const";
 import {offers, comments} from "../../../data-test/data-test";
 import cities from "../../../mocks/cities";
@@ -129,6 +129,25 @@ describe(`Async operation work correctly`, () => {
         expect(dispatch).toHaveBeenNthCalledWith(1, {
           type: ActionType.LOAD_COMMENTS,
           payload: [{fake: true}],
+        });
+      });
+  });
+
+  it(`Should make a correct API call to /hotels/id/nearby`, () => {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const nearbyLoader = fetchOffersNearby(`6`);
+
+    apiMock
+      .onGet(`${APIRoute.HOTELS}/6${APIRoute.NEARBY}`)
+      .reply(200, []);
+
+    return nearbyLoader(dispatch, () => {}, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: ActionType.LOAD_NEARBY,
+          payload: [],
         });
       });
   });
