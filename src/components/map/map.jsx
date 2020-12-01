@@ -47,59 +47,67 @@ class Map extends PureComponent {
   }
 
   componentDidMount() {
-    const {offers, currentCity, currentOfferLocation} = this.props;
-    this.city = [currentCity.location.lat, currentCity.location.lon];
-    this.icon = this.pin;
-    this.zoom = 12;
-    this.map = leaflet.map(`map`, {
-      center: this.city,
-      zoom: this.zoom,
-      zoomControl: false,
-      marker: true
-    });
-    this.map.setView(this.city, this.zoom);
+    const {test} = this.props;
 
-    leaflet
-      .tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`, {
-        attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`
-      })
-      .addTo(this.map);
-
-    this.renderCurrentOffer(currentOfferLocation);
-
-    offers.forEach((offer) => {
-      const {coordinates} = offer;
-
+    if (!test) {
+      const {offers, currentCity, currentOfferLocation} = this.props;
+      this.city = [currentCity.location.lat, currentCity.location.lon];
       this.icon = this.pin;
-      this.renderPin(coordinates);
-    });
+      this.zoom = 12;
+      this.map = leaflet.map(`map`, {
+        center: this.city,
+        zoom: this.zoom,
+        zoomControl: false,
+        marker: true
+      });
+      this.map.setView(this.city, this.zoom);
+
+      leaflet
+        .tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`, {
+          attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`
+        })
+        .addTo(this.map);
+
+      this.renderCurrentOffer(currentOfferLocation);
+
+      offers.forEach((offer) => {
+        const {coordinates} = offer;
+
+        this.icon = this.pin;
+        this.renderPin(coordinates);
+      });
+    }
   }
 
   componentDidUpdate() {
-    const {offers, currentCity, offerActive, currentOfferLocation} = this.props;
-    this.city = [currentCity.location.lat, currentCity.location.lon];
-    this.map.setView(this.city, this.zoom);
-    this.icon = this.pin;
+    const {test} = this.props;
 
-    this.map.eachLayer((layer) => {
-      if (layer instanceof leaflet.Marker) {
-        this.map.removeLayer(layer);
-      }
-    });
+    if (!test) {
+      const {offers, currentCity, offerActive, currentOfferLocation} = this.props;
+      this.city = [currentCity.location.lat, currentCity.location.lon];
+      this.map.setView(this.city, this.zoom);
+      this.icon = this.pin;
 
-    this.renderCurrentOffer(currentOfferLocation);
+      this.map.eachLayer((layer) => {
+        if (layer instanceof leaflet.Marker) {
+          this.map.removeLayer(layer);
+        }
+      });
 
-    offers.forEach((offer) => {
-      const {coordinates} = offer;
+      this.renderCurrentOffer(currentOfferLocation);
 
-      if (offer.id === offerActive.id) {
-        this.icon = this.pinActive;
-      } else {
-        this.icon = this.pin;
-      }
+      offers.forEach((offer) => {
+        const {coordinates} = offer;
 
-      this.renderPin(coordinates);
-    });
+        if (offer.id === offerActive.id) {
+          this.icon = this.pinActive;
+        } else {
+          this.icon = this.pin;
+        }
+
+        this.renderPin(coordinates);
+      });
+    }
   }
 
   render() {
@@ -110,6 +118,7 @@ class Map extends PureComponent {
 }
 
 Map.propTypes = {
+  test: PropTypes.bool,
   currentCity: PropTypes.shape({
     location: PropTypes.shape({
       lat: PropTypes.number.isRequired,

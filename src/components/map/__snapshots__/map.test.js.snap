@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Map /> render renders correctly with currentOfferLocation 1`] = `
+<div
+  id="map"
+  style={
+    Object {
+      "height": "100%",
+    }
+  }
+/>
+`;
+
+exports[`<Map /> render renders correctly without currentOfferLocation 1`] = `
+<div
+  id="map"
+  style={
+    Object {
+      "height": "100%",
+    }
+  }
+/>
+`;

@@ -9,6 +9,8 @@ describe(`<Map /> render`, () => {
       .create(<Map
         offers={offers}
         currentCity={city}
+        offerActive={offers[0]}
+        test={true}
       />)
       .toJSON();
 
@@ -20,7 +22,9 @@ describe(`<Map /> render`, () => {
       .create(<Map
         offers={offers}
         currentCity={city}
+        offerActive={offers[0]}
         currentOfferLocation={currentCity}
+        test={true}
       />)
       .toJSON();
 
