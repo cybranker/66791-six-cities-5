@@ -20,35 +20,43 @@ export const fetchOfferList = () => (dispatch, _getState, api) => (
 );
 
 export const fetchFavoriteOfferList = () => (dispatch, _getState, api) => (
-  api.get(APIRoute.FAVORITE)
-    .then(({data}) => dispatch(loadFavoriteOffers(data.map(adaptOffersToClient))))
-    .catch((err) => {
-      throw err;
-    })
+  api ?
+    api.get(APIRoute.FAVORITE)
+      .then(({data}) => dispatch(loadFavoriteOffers(data.map(adaptOffersToClient))))
+      .catch((err) => {
+        throw err;
+      })
+    : Promise.resolve()
 );
 
 export const fetchOffer = (id) => (dispatch, _getState, api) => (
-  api.get(`${APIRoute.HOTELS}/${id}`)
-    .then(({data}) => dispatch(loadOffer([data].map(adaptOffersToClient)[0])))
-    .catch((err) => {
-      throw err;
-    })
+  api ?
+    api.get(`${APIRoute.HOTELS}/${id}`)
+      .then(({data}) => dispatch(loadOffer([data].map(adaptOffersToClient)[0])))
+      .catch((err) => {
+        throw err;
+      })
+    : Promise.resolve()
 );
 
 export const fetchCommentList = (id) => (dispatch, _getState, api) => (
-  api.get(`${APIRoute.COMMENTS}/${id}`)
-    .then(({data}) => dispatch(loadComments(data)))
-    .catch((err) => {
-      throw err;
-    })
+  api ?
+    api.get(`${APIRoute.COMMENTS}/${id}`)
+      .then(({data}) => dispatch(loadComments(data)))
+      .catch((err) => {
+        throw err;
+      })
+    : Promise.resolve()
 );
 
 export const fetchOffersNearby = (id) => (dispatch, _getState, api) => (
-  api.get(`${APIRoute.HOTELS}/${id}${APIRoute.NEARBY}`)
-    .then(({data}) => dispatch(loadNearby(data.map(adaptOffersToClient))))
-    .catch((err) => {
-      throw err;
-    })
+  api ?
+    api.get(`${APIRoute.HOTELS}/${id}${APIRoute.NEARBY}`)
+      .then(({data}) => dispatch(loadNearby(data.map(adaptOffersToClient))))
+      .catch((err) => {
+        throw err;
+      })
+    : Promise.resolve()
 );
 
 export const checkAuth = () => (dispatch, _getState, api) => (
