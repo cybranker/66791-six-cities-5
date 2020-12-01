@@ -231,3 +231,10 @@ export const match = {
   path: `/:city?`,
   url: `/cologne`
 };
+
+export const matchID = {
+  isExact: true,
+  params: {id: `9`},
+  path: `/:city?`,
+  url: `/cologne`
+};
