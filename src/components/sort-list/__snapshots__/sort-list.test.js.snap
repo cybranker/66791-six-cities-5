@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should SortList render correctly 1`] = `
+<ul
+  className="places__options places__options--custom false"
+  onClick={[Function]}
+>
+  <li
+    className="places__option places__option--active"
+    onClick={[Function]}
+    tabIndex="0"
+  >
+    Popular
+  </li>
+  <li
+    className="places__option false"
+    onClick={[Function]}
+    tabIndex="0"
+  >
+    Price: low to high
+  </li>
+  <li
+    className="places__option false"
+    onClick={[Function]}
+    tabIndex="0"
+  >
+    Price: high to low
+  </li>
+  <li
+    className="places__option false"
+    onClick={[Function]}
+    tabIndex="0"
+  >
+    Top rated first
+  </li>
+</ul>
+`;
