@@ -16,7 +16,9 @@ export default PropTypes.shape({
   ),
   prevPic: PropTypes.string,
   title: PropTypes.string,
-  description: PropTypes.array,
+  description: PropTypes.arrayOf(
+      PropTypes.string.isRequired
+  ),
   isPremium: PropTypes.bool,
   type: PropTypes.oneOf([
     OfferType.APARTMENT,
@@ -28,7 +30,9 @@ export default PropTypes.shape({
   numberBedrooms: PropTypes.number,
   maxGuests: PropTypes.number,
   price: PropTypes.number,
-  features: PropTypes.array,
+  features: PropTypes.arrayOf(
+      PropTypes.string.isRequired
+  ),
   manager: PropTypes.shape({
     picture: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
