@@ -29,23 +29,6 @@ class Map extends PureComponent {
     this.currentOffer = [];
   }
 
-  renderPin(coordinates) {
-    const icon = this.icon;
-    const map = this.map;
-
-    leaflet
-      .marker(coordinates, {icon})
-      .addTo(map);
-  }
-
-  renderCurrentOffer(location) {
-    if (location) {
-      this.currentOffer = [location.latitude, location.longitude];
-      this.icon = this.pinActive;
-      this.renderPin(this.currentOffer);
-    }
-  }
-
   componentDidMount() {
     const {test} = this.props;
 
@@ -107,6 +90,23 @@ class Map extends PureComponent {
 
         this.renderPin(coordinates);
       });
+    }
+  }
+
+  renderPin(coordinates) {
+    const icon = this.icon;
+    const map = this.map;
+
+    leaflet
+      .marker(coordinates, {icon})
+      .addTo(map);
+  }
+
+  renderCurrentOffer(location) {
+    if (location) {
+      this.currentOffer = [location.latitude, location.longitude];
+      this.icon = this.pinActive;
+      this.renderPin(this.currentOffer);
     }
   }
 
