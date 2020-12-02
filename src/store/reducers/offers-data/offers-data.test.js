@@ -75,6 +75,39 @@ test(`Reducer should update offerNearby by load offerNearby`, () => {
   });
 });
 
+test(`Reducer should update offerNearby by offerNearby in action "installFavoriteNearby"`, () => {
+  expect(offersData({
+    offerNearby: offers
+  }, {
+    type: ActionType.INSTALL_FAVORITE_NEARBY,
+    payload: offers[2]
+  })).toEqual({
+    offerNearby: offers
+  });
+});
+
+test(`Reducer should update offers by offers in action "installFavoriteOffers"`, () => {
+  expect(offersData({
+    offers
+  }, {
+    type: ActionType.INSTALL_FAVORITE_OFFERS,
+    payload: offers[2]
+  })).toEqual({
+    offers
+  });
+});
+
+test(`Reducer should update favoriteOffers by favoriteOffers in action "installFavoriteFavorites"`, () => {
+  expect(offersData({
+    favoriteOffers: offers
+  }, {
+    type: ActionType.INSTALL_FAVORITE_FAVORITES,
+    payload: offers
+  })).toEqual({
+    favoriteOffers: offers
+  });
+});
+
 describe(`Async operation work correctly`, () => {
   it(`Should make a correct API call to /hotels`, () => {
     const apiMock = new MockAdapter(api);
